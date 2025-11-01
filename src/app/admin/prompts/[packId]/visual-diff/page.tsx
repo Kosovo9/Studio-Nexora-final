@@ -3,9 +3,14 @@ import { useEffect, useState, useMemo } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import TokenDiff from '@/components/diff/TokenDiff';
 import CopyButton from '@/components/diff/CopyButton';
+import Chips from '@/components/diff/Chips';
+import MetricsInline from '@/components/diff/MetricsInline';
+import TotalsBar from '@/components/diff/TotalsBar';
+import { itemDiffFields } from '@/lib/utils/fingerprint';
 
 type Row = {
   id: string;
+  changed?: string[];
   left?: {
     prompt: string;
     negative_prompt: string;
@@ -72,14 +77,17 @@ export default function Page(){
         for (const key of allKeys) {
           const l = map1.get(key);
           const r = map2.get(key);
-          if (showOnlyChanged && l?.prompt === r?.prompt && l?.negative_prompt === r?.negative_prompt) continue;
-          rws.push({ id: String(key), left: l, right: r });
+          const changed = itemDiffFields(l, r);
+          if (showOnlyChanged && changed.length === 0) continue;
+          rws.push({ id: String(key), left: l, right: r, changed });
         }
         setRows(rws);
         setMeta({ v1: a, v2: b });
       }
     }).catch(e=>console.error('Error loading snapshots:', e));
   }, [v1, v2, packId, showOnlyChanged]);
+
+  const list = useMemo(()=> rows.filter(r => showOnlyChanged ? (r.changed?.length || 0) > 0 : true), [rows, showOnlyChanged]);
 
   return (
     <main className='text-white p-6 space-y-4'>
@@ -109,17 +117,20 @@ export default function Page(){
           <span className='inline-block'>texto plano = sin cambio</span>
         </div>
       </div>
+      {list.length > 0 && <TotalsBar rows={list} />}
 
       <div className='space-y-4'>
-        {rows.map((row, idx)=> (
-          <details key={idx} className='rounded-2xl border border-white/15 p-4 bg-black/40'>
+        {list.map((row, idx)=> (
+          <details key={row.id || idx} className='rounded-2xl border border-white/15 p-4 bg-black/40'>
             <summary className='cursor-pointer text-sm font-semibold mb-2'>
               Item #{idx+1} {row.left?.subject || row.right?.subject || ''} — {row.left?.title || row.right?.title || 'Sin título'}
+              <Chips fields={row.changed || []} />
             </summary>
             <div className='mt-3 space-y-3'>
               <details className='rounded border border-white/10 p-3'>
                 <summary className='cursor-pointer text-sm opacity-80'>Prompt</summary>
                 <TokenDiff oldText={row.left?.prompt || ''} newText={row.right?.prompt || ''} mode={diffMode} compact className='mt-1'/>
+                <MetricsInline oldText={row.left?.prompt || ''} newText={row.right?.prompt || ''} label='Prompt Δ'/>
                 <div className='mt-2 flex gap-2'>
                   <CopyButton text={row.left?.prompt||''} label='Copy A'/>
                   <CopyButton text={row.right?.prompt||''} label='Copy B'/>
@@ -128,6 +139,7 @@ export default function Page(){
               <details className='rounded border border-white/10 p-3'>
                 <summary className='cursor-pointer text-sm opacity-80'>Negative</summary>
                 <TokenDiff oldText={row.left?.negative_prompt || ''} newText={row.right?.negative_prompt || ''} mode={diffMode} compact className='mt-1'/>
+                <MetricsInline oldText={row.left?.negative_prompt || ''} newText={row.right?.negative_prompt || ''} label='Negative Δ'/>
                 <div className='mt-2 flex gap-2'>
                   <CopyButton text={row.left?.negative_prompt||''} label='Copy A'/>
                   <CopyButton text={row.right?.negative_prompt||''} label='Copy B'/>

@@ -15,7 +15,8 @@
     "db:migrate": "prisma migrate dev",
     "postinstall": "prisma generate",
     "install:ci": "npm ci",
-    "verify": "npm ci && npm run lint && npm run type-check"
+    "verify": "npm ci && npm run lint && npm run type-check",
+    "prompts:sql:audit": "type .\\scripts\\sb_prompts_audit_versioning.sql"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.922.0",
@@ -42,13 +43,16 @@
     "bull": "^4.12.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.19",
     "framer-motion": "^10.18.0",
     "immer": "^10.2.0",
     "js-cookie": "^3.0.5",
+    "jsondiffpatch": "^0.7.3",
     "lucide-react": "^0.303.0",
     "next": "14.2.25",
     "next-auth": "^4.24.5",
     "next-intl": "^3.26.5",
+    "object-hash": "^3.0.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-dropzone": "^14.3.8",

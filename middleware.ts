@@ -1,5 +1,7 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 import createIntlMiddleware from 'next-intl/middleware';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 // Define locales and default
 const locales = ['es', 'en', 'pt', 'fr', 'it', 'de', 'nl', 'sv', 'no', 'da', 'ja', 'ko', 'zh'];
@@ -20,7 +22,48 @@ const isProtectedRoute = createRouteMatcher([
   '/success(.*)',
 ]);
 
-// Combine Clerk and next-intl middleware
+/** Security headers constants */
+const SELF = "'self'";
+const STRIPE_JS = "https://js.stripe.com";
+const CF_CHAL = "https://challenges.cloudflare.com";
+const API_STRIPE = "https://api.stripe.com";
+
+/** Content Security Policy */
+const CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' " + STRIPE_JS + " " + CF_CHAL,
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https:",
+  "font-src 'self' data:",
+  "connect-src 'self' " + API_STRIPE + " " + CF_CHAL + " https://api.replicate.com https://*.supabase.co https://img.clerk.com",
+  "frame-src " + STRIPE_JS + " " + CF_CHAL,
+  "worker-src 'self' blob:",
+  "media-src 'self' blob:",
+  "object-src 'none'"
+].join("; ");
+
+function applySecurityHeaders(res: NextResponse) {
+  res.headers.set("Content-Security-Policy", CSP);
+  res.headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
+  res.headers.set("X-Content-Type-Options", "nosniff");
+  res.headers.set("X-Frame-Options", "SAMEORIGIN");
+  res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.headers.set("Permissions-Policy", [
+    "accelerometer=()", "ambient-light-sensor=()", "autoplay=()",
+    "camera=()", "clipboard-read=()", "clipboard-write=()",
+    "gyroscope=()", "microphone=()", "geolocation=()",
+    "payment=(self " + STRIPE_JS + ")", "fullscreen=(self)"
+  ].join(", "));
+  res.headers.set("Cross-Origin-Opener-Policy", "same-origin");
+  res.headers.set("Cross-Origin-Embedder-Policy", "require-corp; report-to=\"coop\"");
+  res.headers.set("Cross-Origin-Resource-Policy", "same-origin");
+  return res;
+}
+
+/** Routes that require human verification (Turnstile cookie) */
+const NEED_HUMAN = [/^\/contact/, /^\/checkout/];
+
+// Combine Clerk and next-intl middleware with security headers
 export default clerkMiddleware(async (auth, request) => {
   // Check if route is protected
   if (isProtectedRoute(request)) {
@@ -33,8 +76,25 @@ export default clerkMiddleware(async (auth, request) => {
     }
   }
 
+  // Check for human verification on sensitive routes
+  const url = request.nextUrl.clone();
+  const path = url.pathname;
+  const needHuman = NEED_HUMAN.some((re) => re.test(path));
+
+  if (needHuman) {
+    const cookie = request.cookies.get('human_ok')?.value;
+    if (cookie !== '1') {
+      url.pathname = "/security/human-check";
+      const redirect = NextResponse.redirect(url);
+      applySecurityHeaders(redirect);
+      return redirect;
+    }
+  }
+
   // Apply next-intl middleware for locale handling
-  return intlMiddleware(request);
+  const response = intlMiddleware(request);
+  applySecurityHeaders(response);
+  return response;
 });
 
 export const config = {

@@ -156,13 +156,29 @@ const nextConfig = {
 
   // Redirects
   async redirects() {
-    return [
+    const url = process.env.NEXT_PUBLIC_SITE_URL || 'https://nexoraproglobal.com';
+    const u = new URL(url);
+    const host = u.host.replace(/^www\./,'');
+    
+    const rules = [
       {
         source: '/home',
         destination: '/',
         permanent: true,
       },
     ];
+    
+    // Optional: Redirect www -> apex
+    if (host && u.host.includes('www')) {
+      rules.push({
+        source: '/:path*',
+        has: [{type: 'host', value: `www.${host}`}],
+        destination: `https://${host}/:path*`,
+        permanent: true,
+      });
+    }
+    
+    return rules;
   },
 };
 

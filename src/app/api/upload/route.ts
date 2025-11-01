@@ -1149,7 +1149,7 @@ async function logUploadSuccess(data: {
         userId: data.userId,
       },
     });
-  } catch (error) {
-    console.error('Failed to log upload success:', error);
+  } catch (_error) {
+    console.error('Failed to log upload success:', _error);
   }
 }

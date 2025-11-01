@@ -64,7 +64,7 @@ export async function checkUserLimits(
  */
 export async function updateUserUsage(
   userId: string,
-  fileSize: number
+  _fileSize: number
 ): Promise<void> {
   try {
     // TODO: Update user's storage usage in database

@@ -14,7 +14,7 @@ export async function createOxxoPayment(
   plan: PlanType,
   userId: string,
   email: string,
-  customerName: string
+  _customerName: string
 ) {
   try {
     const amounts = {
@@ -121,7 +121,7 @@ export async function sendOxxoVoucherEmail(
 ) {
   try {
     // This would integrate with your email service (SendGrid, Resend, etc.)
-    const emailContent = {
+    const _emailContent = {
       to: email,
       subject: 'Tu comprobante de pago OXXO - Studio Nexora',
       html: `
@@ -245,7 +245,7 @@ export async function handleOxxoPaymentWebhook(event: any) {
 /**
  * Get OXXO payment statistics
  */
-export async function getOxxoPaymentStats(userId: string) {
+export async function getOxxoPaymentStats(_userId: string) {
   try {
     // This would query your database for OXXO payment statistics
     return {

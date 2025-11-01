@@ -490,7 +490,7 @@ export async function POST(request: NextRequest) {
 
 // ==================== COMPREHENSIVE HELPER FUNCTIONS ====================
 
-async function validateCheckoutRequest(request: CheckoutRequest, userId: string) {
+async function validateCheckoutRequest(request: CheckoutRequest, _userId: string) {
   // Validate price ID
   const validPriceIds = [
     process.env.NEXT_PUBLIC_STRIPE_PRICE_BASIC_ID,
@@ -768,7 +768,7 @@ async function buildLineItems(options: any) {
 }
 
 // Mock implementations for external services
-async function getUserPaymentHistory(userId: string) {
+async function getUserPaymentHistory(_userId: string) {
   return { failedPayments: 0, successfulPayments: 5 };
 }
 

@@ -1,7 +1,6 @@
 import { imageProcessingQueue, updateJobStatus } from '../lib/queue';
 import type { ImageProcessingJobData } from '../lib/queue';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import sharp from 'sharp';
 import { prisma } from '../lib/prisma';
 
@@ -31,7 +30,7 @@ imageProcessingQueue.process('process-image', async (job) => {
     await updateJobStatus(job.id.toString(), 'processing', 25);
 
     // Process image with sharp
-    let processedBuffer = await sharp(imageBuffer)
+    const processedBuffer = await sharp(imageBuffer)
       .resize(1920, 1080, { 
         fit: 'inside', 
         withoutEnlargement: true 

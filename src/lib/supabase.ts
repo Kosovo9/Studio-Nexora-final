@@ -39,7 +39,7 @@ export async function uploadImageToSupabase(
     const fileName = `${userId}/${Date.now()}.${fileExt}`;
     const filePath = `${folder}/${fileName}`;
 
-    const { data, error } = await supabaseAdmin.storage
+    const { error } = await supabaseAdmin.storage
       .from('studio-nexora-images')
       .upload(filePath, file, {
         cacheControl: '3600',
@@ -82,7 +82,7 @@ export async function uploadFromUrlToSupabase(
     const fileName = `${userId}/${Date.now()}.jpg`;
     const filePath = `${folder}/${fileName}`;
 
-    const { data, error } = await supabaseAdmin.storage
+    const { error } = await supabaseAdmin.storage
       .from('studio-nexora-images')
       .upload(filePath, blob, {
         contentType: 'image/jpeg',

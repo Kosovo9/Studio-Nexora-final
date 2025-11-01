@@ -2,15 +2,7 @@
 import objectHash from 'object-hash';
 import { supabaseServer } from '@/lib/auth/supabase';
 import { logAudit } from '@/lib/db/audit';
-
-async function requireRole(roles: string[] = ['owner','admin','editor']) {
-  const sb = supabaseServer();
-  const { data: { user } } = await sb.auth.getUser();
-  if (!user) return { ok:false as const, error:'unauthorized' };
-  const { data: prof } = await sb.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!prof?.role || !roles.includes(prof.role)) return { ok:false as const, error:'forbidden' };
-  return { ok:true as const, sb, user, role: prof.role as string };
-}
+import { requireRole } from '@/lib/db/prompts';
 
 export async function snapshotPack(pack_id: string) {
   const { ok, sb, error, user } = await requireRole(['owner','admin','editor']) as any;

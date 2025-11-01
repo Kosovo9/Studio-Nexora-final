@@ -47,11 +47,8 @@ export default function Page(){
           <button className='rounded border border-white/20 px-3 py-2' onClick={async()=>{
             if (sel.length!==2) { alert('Selecciona exactamente 2 snapshots para comparar'); return; }
             const [a,b] = sel;
-            const r = await fetch('/api/admin/prompts/version/diff?v1='+a+'&v2='+b);
-            const j = await r.json();
-            const out = JSON.stringify(j.delta||{}, null, 2);
-            const w = window.open('', '_blank'); w?.document.write('<pre style="white-space:pre-wrap;color:white;background:#0b0b0b;padding:16px;">'+out.replace(/</g,'&lt;')+'</pre>');
-          }}>Diff (2 seleccionados)</button>
+            window.location.href = `/admin/prompts/${packId}/visual-diff?v1=${encodeURIComponent(a)}&v2=${encodeURIComponent(b)}`;
+          }}>Visual Diff (2 seleccionados)</button>
           <button className='rounded border border-white/20 px-3 py-2' onClick={()=>setSel([])}>Limpiar selección</button>
         </div>
       </div>

@@ -23,40 +23,39 @@ const isProtectedRoute = createRouteMatcher([
 ]);
 
 /** Security headers constants */
-const SELF = "'self'";
-const STRIPE_JS = "https://js.stripe.com";
-const CF_CHAL = "https://challenges.cloudflare.com";
-const API_STRIPE = "https://api.stripe.com";
+const STRIPE_JS = 'https://js.stripe.com';
+const CF_CHAL = 'https://challenges.cloudflare.com';
+const API_STRIPE = 'https://api.stripe.com';
 
 /** Content Security Policy */
 const CSP = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline' " + STRIPE_JS + " " + CF_CHAL,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https:",
+  "img-src 'self' data: blob:",
   "font-src 'self' data:",
-  "connect-src 'self' " + API_STRIPE + " " + CF_CHAL + " https://api.replicate.com https://*.supabase.co https://img.clerk.com",
+  "connect-src 'self' " + API_STRIPE + " " + CF_CHAL,
   "frame-src " + STRIPE_JS + " " + CF_CHAL,
   "worker-src 'self' blob:",
   "media-src 'self' blob:",
   "object-src 'none'"
-].join("; ");
+].join('; ');
 
 function applySecurityHeaders(res: NextResponse) {
-  res.headers.set("Content-Security-Policy", CSP);
-  res.headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
-  res.headers.set("X-Content-Type-Options", "nosniff");
-  res.headers.set("X-Frame-Options", "SAMEORIGIN");
-  res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
-  res.headers.set("Permissions-Policy", [
-    "accelerometer=()", "ambient-light-sensor=()", "autoplay=()",
-    "camera=()", "clipboard-read=()", "clipboard-write=()",
-    "gyroscope=()", "microphone=()", "geolocation=()",
-    "payment=(self " + STRIPE_JS + ")", "fullscreen=(self)"
-  ].join(", "));
-  res.headers.set("Cross-Origin-Opener-Policy", "same-origin");
-  res.headers.set("Cross-Origin-Embedder-Policy", "require-corp; report-to=\"coop\"");
-  res.headers.set("Cross-Origin-Resource-Policy", "same-origin");
+  res.headers.set('Content-Security-Policy', CSP);
+  res.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  res.headers.set('X-Content-Type-Options', 'nosniff');
+  res.headers.set('X-Frame-Options', 'SAMEORIGIN');
+  res.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.headers.set('Permissions-Policy', [
+    'accelerometer=()', 'ambient-light-sensor=()', 'autoplay=()',
+    'camera=()', 'clipboard-read=()', 'clipboard-write=()',
+    'gyroscope=()', 'microphone=()', 'geolocation=()',
+    `payment=(self ${STRIPE_JS})`, 'fullscreen=(self)'
+  ].join(', '));
+  res.headers.set('Cross-Origin-Opener-Policy', 'same-origin');
+  res.headers.set('Cross-Origin-Embedder-Policy', 'require-corp; report-to="coop"');
+  res.headers.set('Cross-Origin-Resource-Policy', 'same-origin');
   return res;
 }
 
@@ -76,9 +75,21 @@ export default clerkMiddleware(async (auth, request) => {
     }
   }
 
-  // Check for human verification on sensitive routes
   const url = request.nextUrl.clone();
   const path = url.pathname;
+  const res = NextResponse.next();
+  applySecurityHeaders(res);
+
+  // A/B cookie para /pricing
+  if (path.startsWith('/pricing')) {
+    const ab = request.cookies.get('ab_pricing')?.value;
+    if (!ab) {
+      const v = Math.random() < 0.5 ? 'A' : 'B';
+      res.cookies.set('ab_pricing', v, { path: '/', maxAge: 60*60*24*90, sameSite: 'Lax' });
+    }
+  }
+
+  // Check for human verification on sensitive routes
   const needHuman = NEED_HUMAN.some((re) => re.test(path));
 
   if (needHuman) {

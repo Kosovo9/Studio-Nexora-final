@@ -3,6 +3,10 @@ import { ClerkProvider } from '@clerk/nextjs';
 import { Inter } from 'next/font/google';
 import { SITE } from '@/lib/seo/site';
 import Preconnects from '@/components/seo/Preconnects';
+import SeoRoot from '@/components/seo/SeoRoot';
+import PlausibleGate from '@/components/analytics/PlausibleGate';
+import CookieBanner from '@/components/consent/CookieBanner';
+import CookieManagerButton from '@/components/consent/CookieManagerButton';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -67,6 +71,10 @@ export default function RootLayout({
         <Preconnects />
       </head>
       <body className={`min-h-screen antialiased ${inter.className}`}>
+        <SeoRoot />
+        <PlausibleGate />
+        <CookieBanner />
+        <CookieManagerButton />
         <ClerkProvider>
           {children}
         </ClerkProvider>

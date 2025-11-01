@@ -28,9 +28,9 @@ export default async function LocaleLayout({
             <EarthBackground />
           </div>
           <Navbar />
-          <NextIntlClientProvider messages={messages}>
-            {children}
-          </NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
         </EnergyModeProviderWrapper>
       </body>
     </html>

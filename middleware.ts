@@ -80,6 +80,17 @@ export default clerkMiddleware(async (auth, request) => {
   const res = NextResponse.next();
   applySecurityHeaders(res);
 
+  // CSRF cookie (double-submit)
+  let csrf = request.cookies.get('sn_csrf')?.value;
+  if (!csrf) {
+    const bytes = new Uint8Array(16);
+    if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+      crypto.getRandomValues(bytes);
+      csrf = Array.from(bytes).map(b=>b.toString(16).padStart(2,'0')).join('');
+      res.cookies.set('sn_csrf', csrf, { path:'/', maxAge: 60*60*24*30, sameSite:'Lax', secure: true });
+    }
+  }
+
   // A/B cookie para /pricing
   if (path.startsWith('/pricing')) {
     const ab = request.cookies.get('ab_pricing')?.value;
@@ -99,6 +110,19 @@ export default clerkMiddleware(async (auth, request) => {
       const redirect = NextResponse.redirect(url);
       applySecurityHeaders(redirect);
       return redirect;
+    }
+  }
+
+  // CSRF enforcement
+  const isApi = path.startsWith('/api/');
+  const write = ['POST','PUT','PATCH','DELETE'].includes(request.method);
+  const WL = ['/api/stripe/webhook','/api/turnstile/verify'];
+  const inWL = WL.some(w=> path.startsWith(w));
+  if (isApi && write && !inWL) {
+    const hdr = request.headers.get('x-csrf-token') || '';
+    const ck  = request.cookies.get('sn_csrf')?.value || '';
+    if (!ck || hdr !== ck) {
+      return new NextResponse('Forbidden (CSRF)', { status: 403 });
     }
   }
 

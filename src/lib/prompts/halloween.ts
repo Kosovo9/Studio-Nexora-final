@@ -31,3 +31,24 @@ export function loadHalloweenPack(baseDir = process.cwd()) {
   return json;
 }
 
+export type SNFamily = {
+  id: string;
+  location: string;
+  concept: string;
+  prompt: string;
+  negative_prompt: string;
+  width: number;
+  height: number;
+  cfg_scale: number;
+  seed: number;
+  sampler: string;
+  steps: number;
+};
+
+export function loadHalloweenFamilies(baseDir = process.cwd()) {
+  const fp = path.join(baseDir, 'assets','prompts','halloween-dia-de-muertos','families_groups.jsonl');
+  const raw = fs.readFileSync(fp, 'utf-8').split(/\r?\n/).filter(Boolean);
+  const rows = raw.map((l: string) => JSON.parse(l)) as SNFamily[];
+  return rows;
+}
+

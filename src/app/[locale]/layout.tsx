@@ -2,7 +2,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { Inter } from 'next/font/google';
 import dynamic from 'next/dynamic';
-import { EnergyModeProvider } from '@/contexts/energy-mode';
+import EnergyModeProviderWrapper from '@/components/providers/EnergyModeProvider';
 import '../globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -23,7 +23,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body className={inter.className}>
-        <EnergyModeProvider>
+        <EnergyModeProviderWrapper>
           <div className="fixed inset-0 -z-10">
             <EarthBackground />
           </div>
@@ -31,7 +31,7 @@ export default async function LocaleLayout({
           <NextIntlClientProvider messages={messages}>
             {children}
           </NextIntlClientProvider>
-        </EnergyModeProvider>
+        </EnergyModeProviderWrapper>
       </body>
     </html>
   );

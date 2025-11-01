@@ -18,7 +18,8 @@
     "verify": "npm ci && npm run lint && npm run type-check",
     "prompts:sql:audit": "type .\\scripts\\sb_prompts_audit_versioning.sql",
     "dev:4321": "next dev -p 4321",
-    "preview:visual-diff": "tsx scripts/preview_visual_diff.ts"
+    "preview:visual-diff": "tsx scripts/preview_visual_diff.ts",
+    "export:diff-metrics": "tsx ./scripts/export_diff_metrics.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.922.0",

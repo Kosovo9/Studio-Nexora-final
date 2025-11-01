@@ -118,6 +118,13 @@ export default function Page(){
         </div>
       </div>
       {list.length > 0 && <TotalsBar rows={list} />}
+      
+      {meta && v1 && v2 && (
+        <div className='flex flex-wrap gap-2'>
+          <a className='rounded border border-white/20 px-3 py-1 text-sm hover:bg-white/10' href={`/api/admin/prompts/version/diff-metrics?v1=${encodeURIComponent(v1)}&v2=${encodeURIComponent(v2)}`}>Export JSON</a>
+          <a className='rounded border border-white/20 px-3 py-1 text-sm hover:bg-white/10' href={`/api/admin/prompts/version/diff-metrics?v1=${encodeURIComponent(v1)}&v2=${encodeURIComponent(v2)}&format=csv`}>Export CSV</a>
+        </div>
+      )}
 
       <div className='space-y-4'>
         {list.map((row, idx)=> (

@@ -1,4 +1,3 @@
-'use server';
 import { signQuery } from '@/lib/security/sign';
 
 type Opts = {

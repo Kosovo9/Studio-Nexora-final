@@ -4,7 +4,7 @@ import { supabaseServer } from '@/lib/auth/supabase';
 import { logAudit } from '@/lib/db/audit';
 
 async function requireRole(roles: string[] = ['owner','admin','editor']) {
-  const sb = supabaseServer();
+  const sb = await supabaseServer();
   const { data: { user } } = await sb.auth.getUser();
   if (!user) return { ok:false as const, error:'unauthorized' };
   const { data: prof } = await sb.from('profiles').select('role').eq('id', user.id).maybeSingle();
@@ -13,7 +13,7 @@ async function requireRole(roles: string[] = ['owner','admin','editor']) {
 }
 
 export async function POST(req: Request) {
-  if (!csrfOk(req)) return NextResponse.json({ error:'CSRF' }, { status:403 });
+  if (!(await csrfOk(req))) return NextResponse.json({ error:'CSRF' }, { status:403 });
   const { ok, sb, error } = await requireRole(['owner','admin','editor']);
   if (!ok) return NextResponse.json({ error }, { status:401 });
   const body = await req.json();

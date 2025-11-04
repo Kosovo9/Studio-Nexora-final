@@ -4,8 +4,8 @@ import { supabaseServer } from '@/lib/auth/supabase';
 import { csrfOk } from '@/lib/security/csrf-server';
 
 export async function POST(req: Request) {
-  if (!csrfOk(req)) return NextResponse.json({ error: 'CSRF' }, { status: 403 });
-  const supa = supabaseServer();
+  if (!(await csrfOk(req))) return NextResponse.json({ error: 'CSRF' }, { status: 403 });
+  const supa = await supabaseServer();
   const { data: { user } } = await supa.auth.getUser();
   if (!user) return NextResponse.json({ error:'unauthorized' }, { status: 401 });
 

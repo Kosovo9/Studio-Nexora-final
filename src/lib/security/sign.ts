@@ -1,4 +1,3 @@
-'use server';
 import crypto from 'crypto';
 
 export function signQuery(params: Record<string, any>, secret = process.env.IMG_SIGN_SECRET!) {

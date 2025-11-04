@@ -7,7 +7,7 @@ export async function GET(req: Request) {
   const v1 = url.searchParams.get('v1')||'';
   const v2 = url.searchParams.get('v2')||'';
   if (!v1 || !v2) return NextResponse.json({ error:'v1 & v2 required' }, { status:400 });
-  const sb = supabaseServer();
+  const sb = await supabaseServer();
   const { data: a } = await sb.from('prompt_pack_versions').select('*').eq('id', v1).maybeSingle();
   const { data: b } = await sb.from('prompt_pack_versions').select('*').eq('id', v2).maybeSingle();
   if (!a || !b) return NextResponse.json({ error:'versions not found' }, { status:404 });

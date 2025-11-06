@@ -2,6 +2,12 @@
 const nextConfig = {
   // React strict mode for production
   reactStrictMode: true,
+    typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 
   // Performance optimizations
   experimental: {

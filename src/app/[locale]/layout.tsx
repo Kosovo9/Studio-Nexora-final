@@ -9,6 +9,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 const EarthBackground = dynamic(() => import('@/components/earth/EarthBackground'), { ssr: false });
 const Header = dynamic(() => import('@/components/Header'), { ssr: false });
+const Footer = dynamic(() => import('@/components/Footer'), { ssr: false });
 export default async function LocaleLayout({
   children,
   params
@@ -28,6 +29,7 @@ export default async function LocaleLayout({
           </div>
             <Header currentLocale={locale} />        <NextIntlClientProvider messages={messages}>
           {children}
+                          <Footer currentLocale={locale} />
         </NextIntlClientProvider>
         </EnergyModeProviderWrapper>
       </body>

@@ -8,8 +8,7 @@ import '../globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 const EarthBackground = dynamic(() => import('@/components/earth/EarthBackground'), { ssr: false });
-const Navbar = dynamic(() => import('@/components/nav/Navbar'), { ssr: false });
-
+const Header = dynamic(() => import('@/components/Header'), { ssr: false });
 export default async function LocaleLayout({
   children,
   params
@@ -27,8 +26,7 @@ export default async function LocaleLayout({
           <div className="fixed inset-0 -z-10">
             <EarthBackground />
           </div>
-          <Navbar />
-        <NextIntlClientProvider messages={messages}>
+            <Header currentLocale={locale} />        <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
         </EnergyModeProviderWrapper>

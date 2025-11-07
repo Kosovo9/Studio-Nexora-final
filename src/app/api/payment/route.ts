@@ -808,7 +808,6 @@ async function handleRefundPayment(userId: string, body: any) {
     where: { id: payment.id },
     data: {
       status: 'refunded',
-      refundedAt: new Date(),
       refundAmount: refund.amount,
       refundReason: reason
     }

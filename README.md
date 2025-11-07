@@ -130,3 +130,4 @@ pnpm run setup:stripe   # Setup Stripe products
 ### Key Components
 
 #### Authentication Flow
+ 

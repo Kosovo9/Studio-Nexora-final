@@ -1,0 +1,48 @@
+[
+  {
+    "id": "portrait_001",
+    "category": "studio",
+    "name": "Retrato de Estudio Clásico",
+    "base_prompt": "Professional studio portrait, neutral gray background, soft diffused lighting from 45 degrees, subject centered, shallow depth of field, natural expression, professional photography, high resolution, sharp details, cinematic lighting, photorealistic",
+    "enhancement_prompt": "Professional studio portrait with subtle skin smoothing while preserving natural texture, neutral gray background, soft diffused lighting from 45 degrees, subject centered, shallow depth of field, confident expression, professional photography, enhanced clarity, optimized lighting, photorealistic perfection",
+    "tags": ["studio", "classic", "professional", "neutral"],
+    "difficulty": "basic"
+  },
+  {
+    "id": "portrait_002",
+    "category": "studio",
+    "name": "Estudio de Lujo Moderno",
+    "base_prompt": "Luxury modern studio setting, dramatic side lighting, black or white seamless background, high-end fashion photography style, professional pose, dramatic shadows, magazine quality, ultra sharp, cinematic mood",
+    "enhancement_prompt": "Luxury modern studio with refined skin tones and natural beauty enhancement, dramatic side lighting, black or white seamless background, high-end fashion photography style, confident pose, artistic shadows, magazine cover quality, ultra sharp details, cinematic perfection",
+    "tags": ["studio", "luxury", "modern", "dramatic"],
+    "difficulty": "intermediate",
+    "isPopular": true
+  },
+  {
+    "id": "portrait_003",
+    "category": "studio",
+    "name": "Retrato Minimalista",
+    "base_prompt": "Minimalist studio portrait, pure white background, even soft lighting, clean aesthetic, simple composition, natural expression, high key photography, crisp details, professional headshot",
+    "enhancement_prompt": "Minimalist studio portrait with subtle refinements, pure white background, even soft lighting with skin tone optimization, clean aesthetic, simple composition, confident expression, high key photography, pristine clarity, flawless professional headshot",
+    "tags": ["studio", "minimalist", "clean", "simple"],
+    "difficulty": "basic"
+  },
+  {
+    "id": "portrait_004",
+    "category": "studio",
+    "name": "Estudio Vintage",
+    "base_prompt": "Vintage photography studio aesthetic, warm tungsten lighting, textured backdrop, nostalgic mood, film photography style, soft focus edges, timeless portrait, analog film grain effect, classic composition",
+    "enhancement_prompt": "Vintage photography studio with enhanced warmth and subtle complexion refinement, tungsten lighting glow, textured backdrop, romantic nostalgic mood, film photography elegance, soft focus artistry, timeless beauty, curated analog aesthetic, classic perfection",
+    "tags": ["studio", "vintage", "warm", "nostalgic"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "portrait_005",
+    "category": "studio",
+    "name": "Iluminación Rembrandt",
+    "base_prompt": "Rembrandt lighting technique, dramatic triangle of light on cheek, dark background, classical portrait photography, side lighting at 45 degrees, strong contrast, artistic shadows, painterly quality, museum-worthy portrait",
+    "enhancement_prompt": "Rembrandt lighting masterpiece with natural feature enhancement, perfect triangle of light on refined complexion, dark dramatic background, classical portrait artistry, side lighting precision, optimized contrast, sculpted shadows, painterly perfection, gallery-quality portrait",
+    "tags": ["studio", "rembrandt", "dramatic", "artistic"],
+    "difficulty": "advanced"
+  }
+]

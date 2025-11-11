@@ -1,0 +1,122 @@
+[
+  {
+    "id": "christmas_001",
+    "category": "seasonal",
+    "name": "Estudio Navideño de Lujo",
+    "base_prompt": "Luxury Christmas studio portrait, elegant decorated Christmas tree with golden ornaments, warm fireplace glow, festive red and gold decorations, cozy holiday atmosphere, professional holiday photography, natural festive smile, soft warm lighting, premium seasonal portrait",
+    "enhancement_prompt": "Luxury Christmas studio with radiant holiday beauty, magnificent decorated tree with golden ornaments, romantic fireplace warmth, festive elegance, cozy sophisticated atmosphere, polished holiday photography, confident festive smile, warm glowing complexion, premium seasonal perfection",
+    "tags": ["christmas", "studio", "luxury", "festive"],
+    "difficulty": "intermediate",
+    "seasonal": true,
+    "available_months": [11, 12, 1]
+  },
+  {
+    "id": "christmas_002",
+    "category": "seasonal",
+    "name": "NYC Navideño - Rockefeller Center",
+    "base_prompt": "Rockefeller Center Christmas tree NYC, iconic giant Christmas tree with thousands of lights, ice skating rink, festive New York atmosphere, holiday magic, winter wonderland, professional Christmas travel photography, joyful holiday spirit",
+    "enhancement_prompt": "Rockefeller Christmas portrait with holiday radiance, iconic giant tree spectacle, magical light display, ice skating elegance, festive NYC glamour, winter wonderland perfection, polished holiday beauty, joyful refined spirit, editorial Christmas excellence",
+    "tags": ["christmas", "nyc", "rockefeller", "iconic"],
+    "difficulty": "advanced",
+    "seasonal": true,
+    "available_months": [11, 12, 1]
+  },
+  {
+    "id": "christmas_003",
+    "category": "seasonal",
+    "name": "Central Park Nevado",
+    "base_prompt": "Central Park covered in snow, winter Christmas atmosphere, snow-covered trees, white winter wonderland, peaceful snowy landscape, cozy winter attire, natural winter portrait, authentic NYC winter moment, magical snowfall",
+    "enhancement_prompt": "Central Park snow portrait with winter glow, pristine snow coverage, Christmas tree sparkle, white wonderland perfection, peaceful beauty, elegant winter style, refined winter complexion, authentic NYC winter editorial, magical snowfall artistry",
+    "tags": ["christmas", "snow", "centralpark", "winter"],
+    "difficulty": "intermediate",
+    "seasonal": true,
+    "available_months": [11, 12, 1]
+  },
+  {
+    "id": "christmas_004",
+    "category": "seasonal",
+    "name": "Cabaña con Chimenea",
+    "base_prompt": "Cozy mountain cabin interior, crackling fireplace with stockings, rustic wooden walls, warm Christmas decorations, intimate holiday setting, soft candlelight, comfortable winter atmosphere, natural cozy portrait, festive home photography",
+    "enhancement_prompt": "Mountain cabin holiday portrait with warm radiant beauty, crackling fireplace romance, rustic charm elegance, exquisite Christmas details, intimate festive glow, soft candlelight on refined skin, comfortable sophistication, festive editorial perfection",
+    "tags": ["christmas", "cabin", "fireplace", "cozy"],
+    "difficulty": "basic",
+    "seasonal": true,
+    "available_months": [11, 12, 1]
+  },
+  {
+    "id": "christmas_005",
+    "category": "seasonal",
+    "name": "Sesión con Santa Claus",
+    "base_prompt": "Professional Santa Claus session, authentic Santa in traditional red suit, workshop setting with wrapped presents, Christmas magic atmosphere, joyful holiday interaction, festive props and decorations, family-friendly Christmas portrait, magical holiday moment",
+    "enhancement_prompt": "Santa Claus magical portrait with holiday joy and polished features, authentic Santa charm, traditional red suit glory, enchanting workshop, wrapped presents artistry, Christmas magic glow, refined festive interaction, family editorial perfection, timeless holiday memory",
+    "tags": ["christmas", "santa", "workshop", "family"],
+    "difficulty": "intermediate",
+    "seasonal": true,
+    "available_months": [11, 12]
+  },
+  {
+    "id": "christmas_006",
+    "category": "seasonal",
+    "name": "Mercado Navideño Europeo",
+    "base_prompt": "European Christmas market atmosphere, wooden stalls with festive lights, hot chocolate and holiday treats, twinkling fairy lights, authentic German Christkindlmarkt style, festive crowd ambiance, warm winter portrait, traditional holiday market photography",
+    "enhancement_prompt": "European Christmas market portrait with festive radiance, charming wooden stalls, twinkling light artistry, hot chocolate warmth, authentic Christkindlmarkt elegance, fairy light glow on refined skin, warm sophisticated winter beauty, traditional holiday editorial excellence",
+    "tags": ["christmas", "market", "european", "traditional"],
+    "difficulty": "intermediate",
+    "seasonal": true,
+    "available_months": [11, 12]
+  },
+  {
+    "id": "christmas_007",
+    "category": "seasonal",
+    "name": "Paisaje Invernal Mágico",
+    "base_prompt": "Magical winter landscape, snow-covered pine forest, gentle snowfall, frosted trees, serene winter wonderland, natural outdoor Christmas setting, peaceful winter portrait, pristine snow scenery, enchanted forest atmosphere",
+    "enhancement_prompt": "Magical winter landscape portrait with ethereal beauty, snow-covered pine majesty, gentle snowfall artistry, frosted tree perfection, serene wonderland glow, natural outdoor elegance, peaceful refined complexion, pristine editorial scenery, enchanted forest glamour",
+    "tags": ["christmas", "winter", "forest", "snow"],
+    "difficulty": "basic",
+    "seasonal": true,
+    "available_months": [11, 12, 1]
+  },
+  {
+    "id": "christmas_008",
+    "category": "seasonal",
+    "name": "Decoración Navideña Interior de Lujo",
+    "base_prompt": "Luxury home Christmas interior, grand staircase with garland, oversized Christmas tree, elegant gold and red decorations, chandelier with festive accents, upscale holiday home, sophisticated Christmas styling, premium interior portrait",
+    "enhancement_prompt": "Luxury Christmas interior portrait with refined elegance, grand staircase majesty, oversized tree splendor, exquisite gold decorations, chandelier sparkle, upscale holiday perfection, sophisticated styling, polished beauty, premium editorial excellence",
+    "tags": ["christmas", "luxury", "interior", "elegant"],
+    "difficulty": "advanced",
+    "seasonal": true,
+    "available_months": [11, 12, 1]
+  },
+  {
+    "id": "halloween_001",
+    "category": "seasonal",
+    "name": "Estudio Halloween Elegante",
+    "base_prompt": "Elegant Halloween studio, sophisticated dark atmosphere, pumpkins and autumn leaves, moody lighting, tasteful spooky decorations, mysterious portrait, professional Halloween photography, artistic shadows, October ambiance",
+    "enhancement_prompt": "Elegant Halloween studio portrait with refined mysterious beauty, sophisticated dark mood, artistic pumpkin arrangements, moody dramatic lighting, tasteful decor, enigmatic allure, professional polish, artistic shadow artistry, October editorial perfection",
+    "tags": ["halloween", "studio", "elegant", "spooky"],
+    "difficulty": "intermediate",
+    "seasonal": true,
+    "available_months": [10]
+  },
+  {
+    "id": "graduation_001",
+    "category": "seasonal",
+    "name": "Graduación Clásica",
+    "base_prompt": "Classic graduation portrait, cap and gown, university campus background, proud achievement moment, natural daylight, diploma in hand, traditional graduation photography, celebratory atmosphere, academic milestone",
+    "enhancement_prompt": "Classic graduation portrait with confident radiant beauty, cap and gown elegance, campus majesty, proud achievement glow, perfect daylight, diploma pride, polished traditional photography, celebratory sophistication, academic editorial excellence",
+    "tags": ["graduation", "academic", "milestone", "traditional"],
+    "difficulty": "basic",
+    "seasonal": true,
+    "available_months": [5, 6, 12]
+  },
+  {
+    "id": "wedding_001",
+    "category": "seasonal",
+    "name": "Retrato de Boda Romántico",
+    "base_prompt": "Romantic wedding portrait, elegant wedding attire, soft romantic lighting, floral arrangements, timeless wedding photography, natural bridal glow, professional ceremony portrait, love and elegance, special day moment",
+    "enhancement_prompt": "Romantic wedding portrait with bridal perfection, elegant attire sophistication, soft romantic glow, exquisite floral artistry, timeless photography excellence, luminous bridal beauty, professional editorial ceremony, love and refined elegance, unforgettable day perfection",
+    "tags": ["wedding", "romantic", "bridal", "elegant"],
+    "difficulty": "advanced",
+    "seasonal": false
+  }
+]

@@ -1,0 +1,138 @@
+[
+  {
+    "id": "beach_001",
+    "category": "nature",
+    "name": "Playa al Atardecer",
+    "base_prompt": "Beach sunset portrait, golden hour ocean backdrop, warm sand, gentle waves, tropical paradise atmosphere, natural beach photography, relaxed coastal vibe, sunset colors reflecting, casual beach style",
+    "enhancement_prompt": "Beach sunset portrait with sun-kissed radiant beauty, golden hour ocean perfection, warm sand elegance, gentle wave artistry, tropical paradise glow, natural refined beach photography, relaxed coastal sophistication, sunset color harmony, editorial beach perfection",
+    "tags": ["beach", "sunset", "ocean", "tropical"],
+    "difficulty": "intermediate",
+    "isPopular": true
+  },
+  {
+    "id": "mountain_001",
+    "category": "nature",
+    "name": "Cima de Montaña",
+    "base_prompt": "Mountain peak portrait, breathtaking vista background, alpine landscape, clear blue sky, adventure photography, natural outdoor setting, majestic mountain ranges, hiking achievement moment, fresh mountain air atmosphere",
+    "enhancement_prompt": "Mountain peak portrait with adventurous refined beauty, breathtaking vista majesty, alpine perfection, crystal blue sky, elevated photography excellence, natural outdoor elegance, majestic range backdrop, achievement glow, fresh mountain editorial",
+    "tags": ["mountain", "adventure", "alpine", "outdoor"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "forest_001",
+    "category": "nature",
+    "name": "Bosque Encantado",
+    "base_prompt": "Enchanted forest setting, dappled sunlight through trees, lush green foliage, natural woodland atmosphere, fairy tale forest vibes, organic portrait photography, mysterious forest path, nature's beauty",
+    "enhancement_prompt": "Enchanted forest portrait with ethereal natural beauty, magical dappled sunlight, lush foliage perfection, woodland elegance, fairy tale sophistication, organic refined photography, mysterious path allure, nature's editorial perfection",
+    "tags": ["forest", "nature", "enchanted", "woodland"],
+    "difficulty": "basic"
+  },
+  {
+    "id": "desert_001",
+    "category": "nature",
+    "name": "Desierto Dorado",
+    "base_prompt": "Golden desert landscape, sand dunes backdrop, warm desert sunlight, minimalist natural setting, vast open space, earth tones, adventurous desert photography, serene isolation, natural desert beauty",
+    "enhancement_prompt": "Golden desert portrait with sun-kissed perfection, majestic sand dunes, warm desert glow on refined skin, minimalist elegance, vast space sophistication, earth tone harmony, adventurous editorial photography, serene beauty, natural desert glamour",
+    "tags": ["desert", "dunes", "minimalist", "adventure"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "cafe_001",
+    "category": "interior",
+    "name": "Café Parisino",
+    "base_prompt": "Parisian café interior, cozy coffee shop atmosphere, marble tables and bistro chairs, warm ambient lighting, espresso cup prop, casual lifestyle photography, authentic café culture, comfortable setting",
+    "enhancement_prompt": "Parisian café portrait with refined casual elegance, cozy sophisticated atmosphere, marble perfection, bistro charm, warm lighting glow on polished skin, espresso moment artistry, lifestyle editorial excellence, authentic café glamour, comfortable sophistication",
+    "tags": ["cafe", "parisian", "lifestyle", "cozy"],
+    "difficulty": "basic"
+  },
+  {
+    "id": "library_001",
+    "category": "interior",
+    "name": "Biblioteca Clásica",
+    "base_prompt": "Classic library interior, floor-to-ceiling bookshelves, vintage leather chairs, warm wooden paneling, intellectual atmosphere, soft reading lamp light, scholarly portrait, timeless library setting, academic ambiance",
+    "enhancement_prompt": "Classic library portrait with intellectual refined beauty, magnificent bookshelves, vintage elegance, warm wood sophistication, scholarly glow, soft lamp artistry, timeless editorial perfection, academic glamour, sophisticated ambiance",
+    "tags": ["library", "academic", "vintage", "intellectual"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "office_001",
+    "category": "professional",
+    "name": "Oficina Ejecutiva Moderna",
+    "base_prompt": "Modern executive office, glass windows with city view, contemporary furniture, professional business setting, confident corporate portrait, sleek minimalist design, natural window light, success atmosphere",
+    "enhancement_prompt": "Modern executive portrait with confident polished elegance, glass windows majesty, city view sophistication, contemporary perfection, professional corporate glamour, sleek design artistry, optimized natural light, success editorial excellence",
+    "tags": ["office", "executive", "corporate", "modern"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "home_001",
+    "category": "interior",
+    "name": "Living Room Acogedor",
+    "base_prompt": "Cozy living room interior, comfortable sofa, warm home lighting, personal space atmosphere, casual home portrait, natural domestic setting, relaxed comfortable moment, authentic home photography",
+    "enhancement_prompt": "Cozy living room portrait with natural refined warmth, comfortable sofa elegance, warm home glow on polished skin, personal space sophistication, casual refined moment, domestic perfection, relaxed editorial comfort, authentic home glamour",
+    "tags": ["home", "cozy", "living", "comfortable"],
+    "difficulty": "basic"
+  },
+  {
+    "id": "rooftop_001",
+    "category": "urban",
+    "name": "Rooftop Urbano al Atardecer",
+    "base_prompt": "Urban rooftop terrace sunset, city skyline backdrop, golden hour lighting, modern metropolitan setting, casual urban portrait, trendy rooftop atmosphere, contemporary city life, panoramic view",
+    "enhancement_prompt": "Urban rooftop portrait with sophisticated city beauty, skyline majesty, golden hour glow on refined skin, modern metropolitan elegance, casual urban chic, trendy atmosphere perfection, contemporary editorial life, panoramic glamour",
+    "tags": ["rooftop", "urban", "sunset", "cityscape"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "garden_001",
+    "category": "nature",
+    "name": "Jardín Botánico",
+    "base_prompt": "Botanical garden portrait, colorful flowers in bloom, lush greenery backdrop, natural garden setting, spring atmosphere, vibrant botanical photography, peaceful garden moment, nature lover portrait",
+    "enhancement_prompt": "Botanical garden portrait with natural radiant beauty, colorful flower perfection, lush greenery elegance, botanical paradise, spring glow on refined skin, vibrant photography excellence, peaceful editorial moment, nature sophistication",
+    "tags": ["garden", "botanical", "flowers", "nature"],
+    "difficulty": "basic"
+  },
+  {
+    "id": "yacht_001",
+    "category": "luxury",
+    "name": "Yate de Lujo",
+    "base_prompt": "Luxury yacht deck, ocean horizon backdrop, nautical lifestyle, upscale maritime setting, blue water and sky, sophisticated sailing portrait, premium boat photography, affluent lifestyle",
+    "enhancement_prompt": "Luxury yacht portrait with refined maritime elegance, ocean horizon perfection, nautical sophistication, upscale setting glamour, blue water artistry, polished sailing beauty, premium editorial photography, billionaire lifestyle perfection",
+    "tags": ["yacht", "luxury", "ocean", "lifestyle"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "pool_001",
+    "category": "luxury",
+    "name": "Piscina Infinita Resort",
+    "base_prompt": "Infinity pool resort setting, pristine turquoise water, tropical resort backdrop, luxury vacation atmosphere, poolside portrait, clear blue sky, resort lifestyle photography, relaxation moment",
+    "enhancement_prompt": "Infinity pool portrait with sun-kissed resort beauty, pristine turquoise perfection, tropical paradise backdrop, luxury vacation glow, poolside sophistication, crystal blue sky, refined lifestyle editorial, ultimate relaxation glamour",
+    "tags": ["pool", "resort", "luxury", "tropical"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "street_001",
+    "category": "urban",
+    "name": "Arte Urbano Graffiti",
+    "base_prompt": "Urban street art backdrop, colorful graffiti murals, city street photography, contemporary urban culture, casual street style, authentic city portrait, vibrant wall art, modern street photography",
+    "enhancement_prompt": "Urban street art portrait with edgy refined beauty, colorful graffiti artistry, city street sophistication, contemporary culture elegance, casual street chic, authentic urban editorial, vibrant mural perfection, modern photography excellence",
+    "tags": ["street", "urban", "graffiti", "contemporary"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "historic_001",
+    "category": "architecture",
+    "name": "Edificio Histórico",
+    "base_prompt": "Historic building architecture, classical columns and details, heritage site backdrop, timeless architectural photography, elegant historical setting, cultural significance, prestigious location portrait",
+    "enhancement_prompt": "Historic building portrait with timeless refined elegance, classical column majesty, heritage site perfection, architectural photography sophistication, elegant historical glow, cultural prestige, location editorial excellence",
+    "tags": ["historic", "architecture", "heritage", "classical"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "metro_001",
+    "category": "urban",
+    "name": "Estación de Metro Artística",
+    "base_prompt": "Artistic metro station, modern urban architecture, subway platform atmosphere, contemporary city portrait, underground station lighting, urban transportation setting, metropolitan lifestyle photography",
+    "enhancement_prompt": "Artistic metro portrait with urban refined beauty, modern architecture sophistication, subway platform chic, contemporary city elegance, underground lighting artistry, metropolitan lifestyle editorial, transportation glamour",
+    "tags": ["metro", "urban", "contemporary", "transportation"],
+    "difficulty": "basic"
+  }
+]

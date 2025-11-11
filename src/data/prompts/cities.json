@@ -1,0 +1,137 @@
+[
+  {
+    "id": "city_001",
+    "category": "city",
+    "name": "Times Square NYC - Día",
+    "base_prompt": "Times Square New York City daytime portrait, iconic billboards and screens in background, bustling urban energy, natural daylight, street photography style, authentic NYC atmosphere, vibrant city life, candid moment, professional travel photography",
+    "enhancement_prompt": "Times Square NYC portrait with polished appearance and radiant complexion, iconic billboards glowing, vibrant urban energy, optimized natural daylight, sophisticated street photography, authentic NYC glamour, dynamic city backdrop, confident presence, editorial travel photography",
+    "tags": ["nyc", "urban", "daytime", "iconic"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "city_002",
+    "category": "city",
+    "name": "Times Square NYC - Noche",
+    "base_prompt": "Times Square at night, dazzling neon lights, illuminated billboards, electric blue hour, bokeh light effects, vibrant nightlife atmosphere, cinematic urban portrait, glowing signs reflecting, professional night photography",
+    "enhancement_prompt": "Times Square night portrait with enhanced features and luminous skin tone, dazzling neon glow, spectacular billboards, magic blue hour, artistic bokeh, vibrant energy, cinematic glamour, perfect light reflections, magazine-quality night photography",
+    "tags": ["nyc", "night", "neon", "vibrant"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "city_003",
+    "category": "city",
+    "name": "Central Park NYC",
+    "base_prompt": "Central Park New York portrait, lush greenery background, natural park setting, dappled sunlight through trees, relaxed outdoor atmosphere, lifestyle photography, genuine smile, urban nature escape, authentic moment",
+    "enhancement_prompt": "Central Park portrait with natural beauty enhancement, lush vibrant greenery, perfectly lit park setting, golden dappled sunlight, glowing complexion, refined lifestyle photography, radiant smile, urban oasis perfection, editorial moment",
+    "tags": ["nyc", "nature", "park", "outdoor"],
+    "difficulty": "basic"
+  },
+  {
+    "id": "city_004",
+    "category": "city",
+    "name": "Brooklyn Bridge NYC",
+    "base_prompt": "Brooklyn Bridge iconic backdrop, Manhattan skyline view, suspension cables geometric pattern, golden hour lighting, urban architectural portrait, confident pose, professional cityscape photography, New York landmark",
+    "enhancement_prompt": "Brooklyn Bridge editorial portrait with refined features, iconic Manhattan skyline, perfect suspension cables framing, golden hour glow on skin, urban architectural masterpiece, power pose, luxury cityscape photography, timeless NYC landmark",
+    "tags": ["nyc", "bridge", "landmark", "architecture"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "city_005",
+    "category": "city",
+    "name": "Torre Eiffel París - Atardecer",
+    "base_prompt": "Eiffel Tower Paris at sunset, romantic golden hour light, Champ de Mars in background, classic Parisian elegance, sophisticated European portrait, warm sunset colors, travel photography excellence, iconic French landmark",
+    "enhancement_prompt": "Eiffel Tower sunset portrait with Parisian elegance and refined beauty, romantic golden glow, Champ de Mars perfection, sophisticated charm, polished European style, warm luminous skin, luxury travel photography, timeless French romance",
+    "tags": ["paris", "eiffel", "romantic", "sunset"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "city_006",
+    "category": "city",
+    "name": "Louvre París",
+    "base_prompt": "Louvre Museum Paris, glass pyramid architectural background, sophisticated cultural setting, elegant Parisian atmosphere, classical French style, museum courtyard, artistic portrait, European sophistication, cultural travel photography",
+    "enhancement_prompt": "Louvre Museum portrait with refined elegance, iconic glass pyramid, sophisticated cultural backdrop, polished Parisian beauty, classical French glamour, pristine museum courtyard, artistic perfection, European luxury, editorial cultural photography",
+    "tags": ["paris", "museum", "culture", "architecture"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "city_007",
+    "category": "city",
+    "name": "Montmartre París",
+    "base_prompt": "Montmartre Paris cobblestone streets, artistic bohemian neighborhood, Sacré-Cœur in background, charming Parisian cafés, vintage French atmosphere, candid street photography, authentic Paris moment, romantic European setting",
+    "enhancement_prompt": "Montmartre artistic portrait with natural refinement, charming cobblestones, Sacré-Cœur majesty, elegant Parisian cafés, timeless French beauty, sophisticated street photography, authentic romance, European editorial perfection",
+    "tags": ["paris", "artistic", "bohemian", "vintage"],
+    "difficulty": "basic"
+  },
+  {
+    "id": "city_008",
+    "category": "city",
+    "name": "Shibuya Crossing Tokio",
+    "base_prompt": "Shibuya Crossing Tokyo, bustling pedestrian intersection, neon signs and digital screens, modern Japanese cityscape, dynamic urban energy, contemporary Asian metropolitan, futuristic atmosphere, street photography Japan, vibrant crossing moment",
+    "enhancement_prompt": "Shibuya Crossing portrait with polished modern beauty, spectacular pedestrian flow, vibrant neon artistry, sleek Japanese cityscape, dynamic energy, contemporary Asian elegance, futuristic glow on skin, editorial street photography, Tokyo perfection",
+    "tags": ["tokyo", "shibuya", "modern", "neon"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "city_009",
+    "category": "city",
+    "name": "Templo Sensoji Tokio",
+    "base_prompt": "Senso-ji Temple Tokyo, traditional Japanese architecture, red lanterns and pagoda, cultural heritage setting, serene temple atmosphere, authentic Japanese portrait, traditional meets modern, respectful cultural photography, spiritual backdrop",
+    "enhancement_prompt": "Senso-ji Temple portrait with serene refined beauty, traditional architecture glory, vibrant red lanterns, cultural heritage elegance, peaceful complexion, authentic Japanese grace, harmonious tradition, respectful editorial photography, spiritual perfection",
+    "tags": ["tokyo", "temple", "traditional", "cultural"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "city_010",
+    "category": "city",
+    "name": "Big Ben Londres",
+    "base_prompt": "Big Ben London, Westminster Parliament background, classic British landmark, Thames riverside, elegant English style, cloudy dramatic sky, British sophistication, iconic clock tower, European architectural portrait, London travel photography",
+    "enhancement_prompt": "Big Ben portrait with British elegance and refined features, Westminster majesty, classic landmark perfection, Thames sophistication, polished English beauty, dramatic sky artistry, British charm, iconic tower framing, luxury London photography",
+    "tags": ["london", "bigben", "landmark", "british"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "city_011",
+    "category": "city",
+    "name": "Tower Bridge Londres",
+    "base_prompt": "Tower Bridge London, Victorian Gothic architecture, River Thames view, quintessentially British, blue suspension bridge, London skyline, architectural masterpiece backdrop, British heritage, professional London portrait",
+    "enhancement_prompt": "Tower Bridge editorial portrait with refined British elegance, Victorian architecture splendor, Thames perfection, quintessential sophistication, blue bridge artistry, polished London beauty, architectural masterwork, heritage glamour, luxury photography",
+    "tags": ["london", "bridge", "victorian", "thames"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "city_012",
+    "category": "city",
+    "name": "Burj Khalifa Dubai",
+    "base_prompt": "Burj Khalifa Dubai, world's tallest building backdrop, modern luxury cityscape, sleek contemporary architecture, golden hour desert light, Middle Eastern sophistication, futuristic urban portrait, Dubai skyline, architectural photography excellence",
+    "enhancement_prompt": "Burj Khalifa luxury portrait with polished glamour, world's tallest tower majesty, ultra-modern cityscape, sleek architectural perfection, golden desert glow on skin, Middle Eastern elegance, futuristic sophistication, Dubai editorial excellence",
+    "tags": ["dubai", "burjkhalifa", "luxury", "modern"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "city_013",
+    "category": "city",
+    "name": "Dubai Marina",
+    "base_prompt": "Dubai Marina waterfront, luxury yachts and skyscrapers, modern architectural marvels, pristine water reflections, upscale cosmopolitan setting, golden hour waterfront, sophisticated urban portrait, Middle Eastern luxury lifestyle",
+    "enhancement_prompt": "Dubai Marina luxury editorial with refined elegance, yacht club sophistication, skyscraper majesty, pristine water mirror, upscale perfection, golden waterfront glow, polished beauty, Middle Eastern glamour, billionaire lifestyle photography",
+    "tags": ["dubai", "marina", "luxury", "waterfront"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "city_014",
+    "category": "city",
+    "name": "Coliseo Romano",
+    "base_prompt": "Roman Colosseum ancient ruins backdrop, classical Italian architecture, historical monument, warm Mediterranean light, timeless Roman setting, cultural heritage portrait, Italian historical photography, ancient wonder atmosphere",
+    "enhancement_prompt": "Colosseum portrait with timeless refined beauty, ancient ruins majesty, classical architecture glory, warm Mediterranean glow, polished Italian elegance, historical perfection, cultural sophistication, Roman editorial excellence, eternal wonder",
+    "tags": ["rome", "colosseum", "ancient", "historical"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "city_015",
+    "category": "city",
+    "name": "Canales de Venecia",
+    "base_prompt": "Venice canals and gondolas, romantic Italian waterways, classical Venetian architecture, floating city charm, serene water reflections, Italian Renaissance atmosphere, European romantic portrait, authentic Venice moment",
+    "enhancement_prompt": "Venice canals portrait with romantic refined beauty, gondola elegance, Venetian architecture perfection, floating city glamour, serene water artistry, Italian Renaissance glow, European sophistication, authentic romantic editorial, timeless Venice",
+    "tags": ["venice", "canals", "romantic", "gondola"],
+    "difficulty": "intermediate"
+  }
+]

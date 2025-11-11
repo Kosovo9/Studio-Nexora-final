@@ -1,6 +1,8 @@
 # 🚀 PLAN PARA MAÑANA - DEPLOYMENT FINAL
 
-## ⏰ TIMELINE REALISTA: 3-4 HORAS PARA PRODUCCIÓN
+## ⏰ TIMELINE REALISTA: 5-6 HORAS PARA PRODUCCIÓN
+
+**ACTUALIZACIÓN:** Se agregó sistema completo de prompts (100+ variaciones) - +2 horas
 
 ---
 
@@ -55,7 +57,38 @@
 
 ---
 
-### FASE 2: PRUEBAS END-TO-END (1.5 horas)
+### FASE 2: SISTEMA DE PROMPTS (2 horas) ⚠️ NUEVO
+
+#### 2.1 Integrar Sistema de Prompts ⏱️ 1 hora
+- [ ] Verificar que `src/lib/prompts/promptSystem.ts` esté completo
+- [ ] Integrar con `orderService.ts` para usar prompts dinámicos
+- [ ] Actualizar `photoService.ts` para generar múltiples variaciones
+- [ ] Probar generación de prompts según número de personas
+
+**Archivo a modificar:** `src/lib/services/orderService.ts`
+```typescript
+// Reemplazar línea 215:
+// const prompt = `Professional ${upload?.category || 'portrait'} photography...`;
+
+// Con:
+import { generatePromptsForPackage } from '../prompts/promptSystem';
+const prompts = generatePromptsForPackage(
+  order.package_type,
+  numberOfPeople, // Obtener de metadata
+  'A' // o 'B' según preferencia
+);
+```
+
+#### 2.2 Probar Generación de Prompts ⏱️ 1 hora
+- [ ] Test: Generar prompts para 1 persona (4 variaciones)
+- [ ] Test: Generar prompts para familia de 4 personas (12-18 variaciones)
+- [ ] Test: Generar prompts para mascota (4 variaciones)
+- [ ] Test: Generar prompts para navidad (8-12 variaciones)
+- [ ] Verificar que se generen 100+ variaciones diferentes
+
+**Resultado:** Sistema de prompts completo con 100+ variaciones ✅
+
+### FASE 3: PRUEBAS END-TO-END (1.5 horas)
 
 #### 2.1 Test: Crear Afiliado ⏱️ 15 min
 ```typescript
@@ -147,7 +180,7 @@ const health = await calc.checkCashFlowHealth(10000);
 
 ---
 
-### FASE 3: INTEGRACIONES FALTANTES (1 hora)
+### FASE 4: INTEGRACIONES FALTANTES (1 hora)
 
 #### 3.1 APIs de Generación de Imágenes ⏱️ 30 min
 
@@ -197,7 +230,7 @@ VITE_CLERK_PUBLISHABLE_KEY=pk_test_...
 
 ---
 
-### FASE 4: DEPLOYMENT FINAL (30 minutos)
+### FASE 5: DEPLOYMENT FINAL (30 minutos)
 
 #### 4.1 Build Final ⏱️ 5 min
 ```bash
@@ -261,17 +294,17 @@ npm run build
 
 ## ⏰ TIMELINE REALISTA
 
-### Escenario Optimista: 3 horas
+### Escenario Optimista: 5 horas
 - ✅ Si todas las APIs están listas
 - ✅ Si no hay problemas de configuración
 - ✅ Si las pruebas pasan a la primera
 
-### Escenario Realista: 4-5 horas
+### Escenario Realista: 5-6 horas
 - ⚠️ Si hay que configurar APIs nuevas
 - ⚠️ Si hay que debuggear problemas menores
 - ⚠️ Si hay que ajustar configuraciones
 
-### Escenario Conservador: 6 horas
+### Escenario Conservador: 7-8 horas
 - ⚠️ Si hay problemas con integraciones
 - ⚠️ Si hay que crear componentes adicionales
 - ⚠️ Si hay que hacer ajustes mayores
@@ -283,8 +316,10 @@ npm run build
 ### PRIORIDAD ALTA (Hacer primero)
 1. ✅ Ejecutar migración SQL
 2. ✅ Configurar email service
-3. ✅ Probar flujo de compra completo
-4. ✅ Verificar que UI/UX no se rompió
+3. ✅ Integrar sistema de prompts (100+ variaciones)
+4. ✅ Probar generación de prompts dinámicos
+5. ✅ Probar flujo de compra completo
+6. ✅ Verificar que UI/UX no se rompió
 
 ### PRIORIDAD MEDIA (Si hay tiempo)
 5. ⚠️ Conectar API de generación de imágenes

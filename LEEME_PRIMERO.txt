@@ -1,0 +1,25 @@
+========================================
+  STUDIO NEXORA - INSTRUCCIONES RÁPIDAS
+========================================
+
+PARA VER EL PROYECTO:
+
+1. Doble clic en: INICIAR_SERVIDOR.bat
+
+2. Espera a ver este mensaje:
+   "Local: http://localhost:5173"
+
+3. Abre tu navegador y ve a esa URL
+
+========================================
+
+SI NO FUNCIONA:
+
+- Verifica que Node.js esté instalado
+- Abre PowerShell y ejecuta:
+  cd C:\studio-nexorapro
+  npm install
+  npm run dev
+
+========================================
+

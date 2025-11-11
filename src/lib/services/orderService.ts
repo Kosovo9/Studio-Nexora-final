@@ -8,6 +8,7 @@ import { createStripeCheckout, createLemonSqueezyCheckout, getAvailablePaymentPr
 import { generatePhotos } from './photoService';
 import { validateDiscountCode, useDiscountCode } from './referralService';
 import { sendReferralSuccessEmail, sendReferralWelcomeEmail } from './notificationService';
+import { handleOrderCompleted } from '../webhooks/purchase-webhook';
 
 export interface Order {
   id: string;
@@ -232,6 +233,9 @@ export async function processOrder(orderId: string): Promise<{
         completed_at: new Date().toISOString(),
       })
       .eq('id', orderId);
+
+    // Procesar webhook de compra (detecta códigos AFF-XXXXX o REF-XXXXX)
+    await handleOrderCompleted(orderId);
 
     return { success: true, error: null };
   } catch (error: any) {

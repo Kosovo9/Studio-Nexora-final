@@ -1,10 +1,12 @@
 /**
  * Photo Processing Service
  * Handles upload, generation, and management of photos
+ * Updated with new category system
  */
 
 import { supabase, STORAGE_BUCKETS, uploadToStorage, getPublicUrl } from '../supabase';
 import { generateImageVersions, applyWatermark } from './aiService';
+import type { PhotoCategory } from '../prompts/categoryPrompts';
 
 export interface PhotoUpload {
   id: string;
@@ -13,7 +15,7 @@ export interface PhotoUpload {
   fileSize: number;
   storagePath: string;
   publicUrl: string;
-  category: 'person' | 'pet' | 'family' | 'team';
+  category: PhotoCategory;
   status: 'pending' | 'processing' | 'completed' | 'failed';
   createdAt: string;
 }
@@ -33,12 +35,39 @@ export interface GeneratedPhoto {
 }
 
 /**
+ * Upload multiple photos to Supabase Storage
+ */
+export async function uploadPhotos(
+  files: File[],
+  userId: string,
+  category: PhotoCategory
+): Promise<{ data: PhotoUpload[] | null; error: string | null }> {
+  const uploads: PhotoUpload[] = [];
+  const errors: string[] = [];
+
+  for (const file of files) {
+    const result = await uploadPhoto(file, userId, category);
+    if (result.data) {
+      uploads.push(result.data);
+    } else if (result.error) {
+      errors.push(`${file.name}: ${result.error}`);
+    }
+  }
+
+  if (uploads.length === 0) {
+    return { data: null, error: errors.join('; ') || 'Failed to upload photos' };
+  }
+
+  return { data: uploads, error: errors.length > 0 ? errors.join('; ') : null };
+}
+
+/**
  * Upload photo to Supabase Storage
  */
 export async function uploadPhoto(
   file: File,
   userId: string,
-  category: 'person' | 'pet' | 'family' | 'team'
+  category: PhotoCategory
 ): Promise<{ data: PhotoUpload | null; error: string | null }> {
   try {
     // Validate file
@@ -52,7 +81,8 @@ export async function uploadPhoto(
 
     // Generate unique path
     const timestamp = Date.now();
-    const fileName = `${userId}/${timestamp}_${file.name}`;
+    const randomId = Math.random().toString(36).substring(2, 9);
+    const fileName = `${userId}/${timestamp}_${randomId}_${file.name}`;
     const path = `uploads/${fileName}`;
 
     // Upload to Storage
@@ -98,7 +128,7 @@ export async function uploadPhoto(
         fileSize: dbData.file_size,
         storagePath: dbData.storage_path,
         publicUrl,
-        category: dbData.category as any,
+        category: dbData.category as PhotoCategory,
         status: dbData.status as any,
         createdAt: dbData.created_at,
       },
@@ -211,6 +241,39 @@ export async function generatePhotos(
 }
 
 /**
+ * Generate photos for multiple uploads
+ */
+export async function generatePhotosForUploads(
+  uploadIds: string[],
+  orderId: string,
+  userId: string,
+  prompts: string[],
+  style?: string
+): Promise<{ data: GeneratedPhoto[] | null; error: string | null }> {
+  const allGenerated: GeneratedPhoto[] = [];
+  const errors: string[] = [];
+
+  for (let i = 0; i < uploadIds.length; i++) {
+    const uploadId = uploadIds[i];
+    const prompt = prompts[i] || prompts[0] || 'Professional portrait';
+    
+    const result = await generatePhotos(uploadId, orderId, userId, prompt, style);
+    
+    if (result.data) {
+      allGenerated.push(...result.data);
+    } else if (result.error) {
+      errors.push(`Upload ${uploadId}: ${result.error}`);
+    }
+  }
+
+  if (allGenerated.length === 0) {
+    return { data: null, error: errors.join('; ') || 'Failed to generate photos' };
+  }
+
+  return { data: allGenerated, error: errors.length > 0 ? errors.join('; ') : null };
+}
+
+/**
  * Get user's photos
  */
 export async function getUserPhotos(userId: string): Promise<{
@@ -235,7 +298,7 @@ export async function getUserPhotos(userId: string): Promise<{
       fileSize: item.file_size,
       storagePath: item.storage_path,
       publicUrl: getPublicUrl(STORAGE_BUCKETS.PHOTO_UPLOADS, item.storage_path),
-      category: item.category as any,
+      category: item.category as PhotoCategory,
       status: item.status as any,
       createdAt: item.created_at,
     }));
@@ -283,4 +346,3 @@ export async function getOrderGeneratedPhotos(orderId: string): Promise<{
     return { data: null, error: error.message || 'Failed to get generated photos' };
   }
 }
-

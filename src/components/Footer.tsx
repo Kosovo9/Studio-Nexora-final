@@ -1,5 +1,6 @@
 import { Globe, CreditCard } from 'lucide-react';
 import { Language, translations } from '../lib/translations';
+import { getMercadoPagoLink } from '../lib/config/mercadopago';
 
 interface FooterProps {
   lang: Language;
@@ -148,7 +149,7 @@ export default function Footer({ lang, onLanguageChange }: FooterProps) {
                   </svg>
                 </div>
                 <a 
-                  href="https://link.mercadopago.com.mx/studionexora" 
+                  href={getMercadoPagoLink()} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="bg-yellow-400 rounded-lg px-4 py-2 shadow-lg hover:shadow-xl transition-shadow flex items-center justify-center"

@@ -75,10 +75,13 @@ export default function ReferralSection({ lang }: ReferralSectionProps) {
           </div>
         </div>
 
-        <button className="inline-flex items-center gap-3 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-10 py-5 rounded-full text-lg font-bold transition-all duration-300 shadow-2xl shadow-orange-500/40 hover:shadow-orange-500/60 hover:scale-105">
+        <a
+          href="#referrals"
+          className="inline-flex items-center gap-3 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-10 py-5 rounded-full text-lg font-bold transition-all duration-300 shadow-2xl shadow-orange-500/40 hover:shadow-orange-500/60 hover:scale-105"
+        >
           <Gift className="w-6 h-6" />
           {t.cta}
-        </button>
+        </a>
       </div>
     </section>
   );

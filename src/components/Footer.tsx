@@ -147,6 +147,29 @@ export default function Footer({ lang, onLanguageChange }: FooterProps) {
                     <path d="M31 9L24.5 23H28.5L35 9H31Z" fill="#1434CB"/>
                   </svg>
                 </div>
+                <a 
+                  href="https://link.mercadopago.com.mx/studionexora" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="bg-yellow-400 rounded-lg px-4 py-2 shadow-lg hover:shadow-xl transition-shadow"
+                >
+                  <svg className="h-8" viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="140" height="32" rx="4" fill="#FFE600"/>
+                    {/* Óvalo azul con borde */}
+                    <ellipse cx="18" cy="16" rx="11" ry="9" fill="#009EE3" stroke="#003D82" strokeWidth="1.2"/>
+                    {/* Mano izquierda */}
+                    <path d="M10 14 Q12 12 14 14 Q12 16 10 18" stroke="white" strokeWidth="1.8" fill="white" strokeLinecap="round"/>
+                    <path d="M10 16 L12 15" stroke="white" strokeWidth="1.2" strokeLinecap="round"/>
+                    {/* Mano derecha */}
+                    <path d="M22 14 Q24 12 26 14 Q24 16 22 18" stroke="white" strokeWidth="1.8" fill="white" strokeLinecap="round"/>
+                    <path d="M24 15 L26 16" stroke="white" strokeWidth="1.2" strokeLinecap="round"/>
+                    {/* Handshake - conexión entre manos */}
+                    <path d="M14 16 Q18 16 22 16" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                    {/* Texto mercado pago */}
+                    <text x="32" y="14" fontFamily="Arial, sans-serif" fontSize="11" fontWeight="bold" fill="#003D82">mercado</text>
+                    <text x="32" y="24" fontFamily="Arial, sans-serif" fontSize="11" fontWeight="bold" fill="#003D82">pago</text>
+                  </svg>
+                </a>
                 <div className="bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-lg px-4 py-2 shadow-lg hover:shadow-xl transition-shadow">
                   <svg className="h-8" viewBox="0 0 80 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <text x="4" y="22" fontFamily="Arial, sans-serif" fontSize="18" fontWeight="bold" fill="#000">Lemon</text>

@@ -8,6 +8,7 @@ import PhotoUpload from './components/PhotoUpload';
 import PreviewComparison from './components/PreviewComparison';
 import AffiliateSection from './components/AffiliateSection';
 import ReferralSection from './components/ReferralSection';
+import ReferralDashboard from './components/ReferralDashboard';
 import Footer from './components/Footer';
 import ConsentModal from './components/ConsentModal';
 import HelpDeskChat from './components/HelpDeskChat';
@@ -116,6 +117,10 @@ function App() {
           </div>
 
           <ReferralSection lang={lang} />
+
+          <div id="referrals">
+            <ReferralDashboard lang={lang} />
+          </div>
         </>
       )}
 

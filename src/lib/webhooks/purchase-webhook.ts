@@ -242,7 +242,6 @@ export async function processPurchaseWebhook(data: PurchaseWebhookData): Promise
 export async function handleOrderCompleted(orderId: string): Promise<void> {
   try {
     // Obtener datos de la orden
-    const { supabase } = await import('../../supabase');
     const { data: order, error } = await supabase
       .from('orders')
       .select('*, profiles(full_name, email)')

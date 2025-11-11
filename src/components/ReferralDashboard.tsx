@@ -30,10 +30,15 @@ export default function ReferralDashboard({ lang }: ReferralDashboardProps) {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // Si no hay usuario, mostrar mensaje discreto sin romper el layout
   if (!user) {
     return (
-      <div className="text-center py-12 text-slate-600">
-        {lang === 'es' ? 'Inicia sesión para ver tus referidos' : 'Sign in to view your referrals'}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center py-12 text-slate-600 bg-slate-50 rounded-2xl border border-slate-200">
+          <p className="text-lg">
+            {lang === 'es' ? 'Inicia sesión para ver tus referidos' : 'Sign in to view your referrals'}
+          </p>
+        </div>
       </div>
     );
   }

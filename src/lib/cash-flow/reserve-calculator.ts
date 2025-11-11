@@ -120,6 +120,71 @@ function getNextPaymentDate(): Date {
 }
 
 /**
+ * Verificar si hay suficiente efectivo disponible
+ */
+export async function checkCashFlowHealth(available_cash: number): Promise<{
+  data: {
+    is_healthy: boolean;
+    alert_level: 'safe' | 'warning' | 'critical';
+    message: string;
+    reserve_needed: number;
+    available_cash: number;
+    deficit?: number;
+  } | null;
+  error: string | null;
+}> {
+  try {
+    const reserveResult = await calculateCashFlowReserve();
+    
+    if (reserveResult.error || !reserveResult.data) {
+      return { data: null, error: reserveResult.error || 'Failed to calculate reserve' };
+    }
+
+    const reserve = reserveResult.data;
+    const reserve_needed = reserve.total_reserve_needed;
+
+    if (available_cash >= reserve_needed * 1.2) {
+      return {
+        data: {
+          is_healthy: true,
+          alert_level: 'safe',
+          message: '✅ Efectivo suficiente para todos los compromisos',
+          reserve_needed,
+          available_cash,
+        },
+        error: null,
+      };
+    } else if (available_cash >= reserve_needed) {
+      return {
+        data: {
+          is_healthy: true,
+          alert_level: 'warning',
+          message: '⚠️ Efectivo justo, monitorear de cerca',
+          reserve_needed,
+          available_cash,
+        },
+        error: null,
+      };
+    } else {
+      const deficit = reserve_needed - available_cash;
+      return {
+        data: {
+          is_healthy: false,
+          alert_level: 'critical',
+          message: `🚨 ALERTA: Faltan $${deficit.toFixed(2)} MXN`,
+          reserve_needed,
+          available_cash,
+          deficit,
+        },
+        error: null,
+      };
+    }
+  } catch (error: any) {
+    return { data: null, error: error.message };
+  }
+}
+
+/**
  * Guardar reserva calculada en base de datos (para admin dashboard)
  */
 export async function saveCashFlowReserve(reserve: CashFlowReserve): Promise<{

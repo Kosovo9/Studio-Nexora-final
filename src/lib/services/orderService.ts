@@ -235,6 +235,7 @@ export async function processOrder(orderId: string): Promise<{
       .eq('id', orderId);
 
     // Procesar webhook de compra (detecta códigos AFF-XXXXX o REF-XXXXX)
+    // Esto procesa automáticamente comisiones y descuentos
     await handleOrderCompleted(orderId);
 
     return { success: true, error: null };

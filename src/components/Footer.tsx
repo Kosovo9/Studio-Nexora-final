@@ -151,9 +151,9 @@ export default function Footer({ lang, onLanguageChange }: FooterProps) {
                   href="https://link.mercadopago.com.mx/studionexora" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="bg-yellow-400 rounded-lg px-4 py-2 shadow-lg hover:shadow-xl transition-shadow"
+                  className="bg-yellow-400 rounded-lg px-4 py-2 shadow-lg hover:shadow-xl transition-shadow flex items-center justify-center"
                 >
-                  <svg className="h-8" viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="h-8 w-auto" viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
                     <rect width="140" height="32" rx="4" fill="#FFE600"/>
                     {/* Óvalo azul con borde */}
                     <ellipse cx="18" cy="16" rx="11" ry="9" fill="#009EE3" stroke="#003D82" strokeWidth="1.2"/>
@@ -180,6 +180,28 @@ export default function Footer({ lang, onLanguageChange }: FooterProps) {
                     <text x="4" y="22" fontFamily="Arial, sans-serif" fontSize="16" fontWeight="bold" fill="#fff">Stripe</text>
                   </svg>
                 </div>
+              </div>
+            </div>
+
+            {/* Estadísticas movidas desde Hero - 40% tamaño, rectangulares */}
+            <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
+              <div className="bg-white/5 backdrop-blur-xl border border-cyan-400/30 rounded-xl px-6 py-3 hover:bg-white/10 hover:border-cyan-400/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/20 group">
+                <div className="text-lg font-bold bg-gradient-to-r from-cyan-300 to-blue-300 bg-clip-text text-transparent group-hover:from-cyan-200 group-hover:to-blue-200 transition-all duration-300">
+                  {lang === 'es' ? '1.34K+' : '1.34K+'}
+                </div>
+                <p className="text-xs text-cyan-200/60 mt-1">{lang === 'es' ? 'Clientes' : 'Clients'}</p>
+              </div>
+              <div className="bg-white/5 backdrop-blur-xl border border-blue-400/30 rounded-xl px-6 py-3 hover:bg-white/10 hover:border-blue-400/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/20 group">
+                <div className="text-lg font-bold bg-gradient-to-r from-blue-300 to-cyan-300 bg-clip-text text-transparent group-hover:from-blue-200 group-hover:to-cyan-200 transition-all duration-300">
+                  100%
+                </div>
+                <p className="text-xs text-blue-200/60 mt-1">{lang === 'es' ? 'Calidad' : 'Quality'}</p>
+              </div>
+              <div className="bg-white/5 backdrop-blur-xl border border-cyan-400/30 rounded-xl px-6 py-3 hover:bg-white/10 hover:border-cyan-400/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/20 group">
+                <div className="text-lg font-bold bg-gradient-to-r from-cyan-300 to-blue-300 bg-clip-text text-transparent group-hover:from-cyan-200 group-hover:to-blue-200 transition-all duration-300">
+                  {lang === 'es' ? '5 min' : '5 min'}
+                </div>
+                <p className="text-xs text-cyan-200/60 mt-1">{lang === 'es' ? 'Entrega' : 'Delivery'}</p>
               </div>
             </div>
 

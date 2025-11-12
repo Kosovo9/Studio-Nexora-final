@@ -126,6 +126,84 @@ https://github.com/Kosovo9/Studio-Nexora-final
 
 ---
 
+## 🔧 ORGANIZACIÓN DE VARIABLES DE ENTORNO (PRIORIDAD ALTA)
+
+### Problema Actual:
+Las variables de entorno están esparcidas por múltiples archivos:
+- `src/lib/supabase.ts` - Variables de Supabase
+- `src/lib/services/paymentService.ts` - Variables de pagos
+- `src/lib/services/aiService.ts` - Variables de IA
+- `src/lib/auth/clerk.ts` - Variables de autenticación
+- `src/lib/notifications/email-templates.ts` - Variables de email
+- Y muchos más archivos...
+
+### Solución Necesaria:
+Crear un **archivo centralizado de configuración** en `src/lib/config/env.ts` que:
+
+1. **Centralice todas las variables:**
+   ```typescript
+   // src/lib/config/env.ts
+   export const env = {
+     // Supabase
+     supabase: {
+       url: import.meta.env.VITE_SUPABASE_URL || '',
+       anonKey: import.meta.env.VITE_SUPABASE_ANON_KEY || '',
+     },
+     // Pagos
+     payments: {
+       stripe: {
+         publicKey: import.meta.env.VITE_STRIPE_PUBLIC_KEY || '',
+         secretKey: import.meta.env.VITE_STRIPE_SECRET_KEY || '',
+       },
+       lemonSqueezy: {
+         apiKey: import.meta.env.VITE_LEMONSQUEEZY_API_KEY || '',
+         storeId: import.meta.env.VITE_LEMONSQUEEZY_STORE_ID || '',
+       },
+     },
+     // IA
+     ai: {
+       googleApiKey: import.meta.env.VITE_GOOGLE_AI_API_KEY || '',
+       replicateToken: import.meta.env.VITE_REPLICATE_API_TOKEN || '',
+     },
+     // Email
+     email: {
+       provider: import.meta.env.VITE_EMAIL_PROVIDER || 'resend',
+       resendApiKey: import.meta.env.VITE_RESEND_API_KEY || '',
+       sendgridApiKey: import.meta.env.VITE_SENDGRID_API_KEY || '',
+       from: import.meta.env.VITE_EMAIL_FROM || 'Studio Nexora <noreply@studionexora.com>',
+       adminEmail: import.meta.env.VITE_ADMIN_EMAIL || 'admin@studionexora.com',
+     },
+     // App
+     app: {
+       url: import.meta.env.VITE_APP_URL || window.location.origin,
+       availableCash: parseFloat(import.meta.env.VITE_AVAILABLE_CASH || '10000'),
+     },
+     // Auth
+     auth: {
+       clerkPublishableKey: import.meta.env.VITE_CLERK_PUBLISHABLE_KEY || '',
+     },
+   };
+   ```
+
+2. **Valide variables críticas:**
+   - Mostrar warnings si faltan variables obligatorias
+   - Proporcionar valores por defecto cuando sea apropiado
+
+3. **Actualice todos los archivos** para usar el nuevo sistema centralizado:
+   - Reemplazar `import.meta.env.VITE_*` por `env.*`
+   - Mantener compatibilidad con código existente
+
+4. **Cree un archivo `.env.example`** con todas las variables documentadas
+
+### Beneficios:
+- ✅ Un solo lugar para todas las variables
+- ✅ Fácil de mantener y actualizar
+- ✅ Validación centralizada
+- ✅ Mejor autocompletado en TypeScript
+- ✅ Documentación clara de qué variables se necesitan
+
+---
+
 ## 🚀 NUEVAS FUNCIONALIDADES O SECCIONES NECESARIAS
 
 ### 1. **Sección de Testimonios** (Nueva - Prioridad Alta)
@@ -232,10 +310,11 @@ studio-nexorapro/
 ## 🎯 OBJETIVOS DE MEJORA PRINCIPALES
 
 ### Prioridad 1 (Crítico):
-1. **Mejorar Hero Section** - Más atractivo y moderno
-2. **Rediseñar Pricing Cards** - Más premium y convincente
-3. **Agregar Sección de Testimonios** - Construir confianza
-4. **Mejorar Dashboard de Usuario** - Mejor experiencia post-compra
+1. **Organizar Variables de Entorno** - Centralizar en `src/lib/config/env.ts` ⚠️ URGENTE
+2. **Mejorar Hero Section** - Más atractivo y moderno
+3. **Rediseñar Pricing Cards** - Más premium y convincente
+4. **Agregar Sección de Testimonios** - Construir confianza
+5. **Mejorar Dashboard de Usuario** - Mejor experiencia post-compra
 
 ### Prioridad 2 (Importante):
 5. **Optimizar Mobile Experience** - Mejorar responsive

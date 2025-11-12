@@ -1,0 +1,25 @@
+═══════════════════════════════════════════════════════════
+  URLs PARA PROBAR EN TU NAVEGADOR
+═══════════════════════════════════════════════════════════
+
+OPCIÓN 1: Localhost (puerto 5175)
+http://localhost:5175
+
+OPCIÓN 2: IP local (127.0.0.1)
+http://127.0.0.1:5175
+
+OPCIÓN 3: IP de red (más confiable en Windows)
+http://192.168.1.4:5175
+
+═══════════════════════════════════════════════════════════
+  INSTRUCCIONES
+═══════════════════════════════════════════════════════════
+
+1. Copia UNA de las URLs de arriba
+2. Pégala en la barra de direcciones de tu navegador
+3. Presiona Enter
+
+Si ninguna funciona, usa el archivo: VER_CAMBIOS_FACIL.bat
+
+═══════════════════════════════════════════════════════════
+

@@ -30,12 +30,12 @@ export default function Hero({ lang, onGetStarted }: HeroProps) {
     <section className="relative bg-gradient-to-br from-slate-950 via-slate-900 to-black text-white overflow-hidden min-h-screen">
       <div className="absolute inset-0">
         <img
-          src="https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1920"
+          src="https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
           alt="Luxury background"
-          className="w-full h-full object-cover opacity-10"
+          className="w-full h-full object-cover opacity-12"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-900/90 to-black/95"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950/92 via-slate-900/92 to-black/96"></div>
       </div>
 
       <div className="absolute left-0 top-0 bottom-0 w-64 opacity-20">

@@ -20,11 +20,12 @@ export default function AffiliateSection({ lang }: AffiliateSectionProps) {
     <section id="affiliates" className="relative py-32 overflow-hidden">
       <div className="absolute inset-0">
         <img
-          src="https://images.pexels.com/photos/1388030/pexels-photo-1388030.jpeg?auto=compress&cs=tinysrgb&w=1920"
-          alt="Dubai Skyline"
-          className="w-full h-full object-cover"
+          src="https://images.pexels.com/photos/1388030/pexels-photo-1388030.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
+          alt="City skyline at night"
+          className="w-full h-full object-cover opacity-95"
+          loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-900/85 to-slate-900/90"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/92 via-slate-900/87 to-slate-900/92"></div>
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

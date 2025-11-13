@@ -33,11 +33,12 @@ export default function HowItWorks({ lang }: HowItWorksProps) {
     <section className="relative py-32 overflow-hidden">
       <div className="absolute inset-0 bg-black">
         <img
-          src="https://images.pexels.com/photos/2159/flight-sky-earth-space.jpg?auto=compress&cs=tinysrgb&w=1920"
-          alt="Earth from space"
-          className="w-full h-full object-cover opacity-80"
+          src="https://images.pexels.com/photos/2159/flight-sky-earth-space.jpg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
+          alt="Space shuttle launch"
+          className="w-full h-full object-cover opacity-90"
+          loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/60 to-black/75"></div>
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

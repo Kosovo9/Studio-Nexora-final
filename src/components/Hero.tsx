@@ -42,12 +42,16 @@ export default function Hero({ lang, onGetStarted }: HeroProps) {
   return (
     <section className="relative bg-black text-white overflow-hidden min-h-screen">
       {/* Fondo de la Tierra desde el espacio */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-black">
         <img
           src="/image.png"
           alt="Earth from space"
           className="w-full h-full object-cover"
           loading="lazy"
+          onError={(e) => {
+            // Fallback si la imagen no carga
+            e.currentTarget.style.display = 'none';
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60"></div>
       </div>

@@ -9,23 +9,34 @@ export default function AnimatedCarousel({ images, direction }: AnimatedCarousel
   const [offset, setOffset] = useState(0);
 
   useEffect(() => {
+    if (!images || images.length === 0) return;
+
     const interval = setInterval(() => {
       setOffset((prev) => {
-        const speed = direction === 'left' ? -2 : 2;
-        const itemHeight = 288 + 24; // h-72 (288px) + gap-6 (24px)
-        const maxOffset = itemHeight * images.length;
-        const newOffset = prev + speed;
-        
-        // Reset cuando llega al final
-        if (Math.abs(newOffset) >= maxOffset) {
-          return 0;
+        try {
+          const speed = direction === 'left' ? -2 : 2;
+          const itemHeight = 288 + 24; // h-72 (288px) + gap-6 (24px)
+          const maxOffset = itemHeight * images.length;
+          const newOffset = prev + speed;
+          
+          // Reset cuando llega al final
+          if (Math.abs(newOffset) >= maxOffset) {
+            return 0;
+          }
+          return newOffset;
+        } catch (error) {
+          console.error('Error in carousel animation:', error);
+          return prev;
         }
-        return newOffset;
       });
     }, 30);
 
     return () => clearInterval(interval);
   }, [direction, images.length]);
+
+  if (!images || images.length === 0) {
+    return null;
+  }
 
   const doubledImages = [...images, ...images, ...images];
 
@@ -41,7 +52,7 @@ export default function AnimatedCarousel({ images, direction }: AnimatedCarousel
       >
         {doubledImages.map((image, index) => (
           <div
-            key={index}
+            key={`${image}-${index}`}
             className="flex-shrink-0 w-56 h-72 rounded-2xl overflow-hidden shadow-2xl border-2 border-white/30 hover:border-white/50 transition-all duration-300 hover:scale-105"
           >
             <img
@@ -49,6 +60,10 @@ export default function AnimatedCarousel({ images, direction }: AnimatedCarousel
               alt={`Sample ${index}`}
               className="w-full h-full object-cover"
               loading="lazy"
+              onError={(e) => {
+                // Ocultar imagen si falla
+                e.currentTarget.style.display = 'none';
+              }}
             />
           </div>
         ))}

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { ClerkProvider } from '@clerk/clerk-react';
 import { getClerkPublishableKey, isClerkConfigured } from './lib/auth/clerk';
 import App from './App.tsx';
+import ErrorBoundary from './components/ErrorBoundary';
 import './index.css';
 
 const clerkKey = getClerkPublishableKey();
@@ -16,8 +17,16 @@ const AppWithAuth = isClerkConfigured() ? (
   <App />
 );
 
-createRoot(document.getElementById('root')!).render(
+// Verificar que el elemento root existe antes de renderizar
+const rootElement = document.getElementById('root');
+if (!rootElement) {
+  throw new Error('Root element not found. Make sure index.html has a <div id="root"></div> element.');
+}
+
+createRoot(rootElement).render(
   <StrictMode>
-    {AppWithAuth}
+    <ErrorBoundary>
+      {AppWithAuth}
+    </ErrorBoundary>
   </StrictMode>
 );

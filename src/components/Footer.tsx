@@ -16,7 +16,7 @@ export default function Footer({ lang, onLanguageChange }: FooterProps) {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div className="md:col-span-1">
             <div className="flex items-center gap-4 mb-6">
-              <img src="/Nexora LOGO.jpg" alt="Nexora" className="w-16 h-16 rounded-xl shadow-2xl" />
+              <img src="/NexoraLOGO.jpg" alt="Nexora" className="w-16 h-16 rounded-xl shadow-2xl" />
               <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Studio Nexora</span>
             </div>
             <p className="text-sm text-slate-400 mb-4 leading-relaxed">

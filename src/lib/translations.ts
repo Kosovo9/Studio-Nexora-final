@@ -128,7 +128,7 @@ export const translations = {
       contact: 'Contacto',
       faq: 'Preguntas Frecuentes',
       disclaimer: 'Aviso Legal',
-      disclaimerText: 'Este servicio utiliza inteligencia artificial para generar imágenes. Los resultados pueden variar según la calidad de las fotos originales. No nos hacemos responsables del uso indebido de las imágenes generadas. Al utilizar este servicio, aceptas nuestros términos y condiciones. Todas las imágenes generadas son propiedad del usuario que las solicitó.',
+      disclaimerText: 'Este servicio utiliza inteligencia artificial para generar imágenes profesionales. Al utilizar Studio Nexora, usted declara y acepta que: (1) Es mayor de 18 años y tiene capacidad legal para contratar este servicio; (2) Es el único responsable del contenido que sube y del uso que se le dé a las imágenes generadas; (3) Está PROHIBIDO subir contenido pornográfico, racista, discriminatorio, de menores de edad, o cualquier material ilegal; (4) Studio Nexora NO se hace responsable del uso indebido, ilegal o no autorizado de las imágenes generadas; (5) Los resultados pueden variar según la calidad de las fotos originales; (6) Todas las imágenes generadas son propiedad del usuario que las solicitó. Al utilizar este servicio, acepta nuestros términos y condiciones completos.',
       rights: 'Todos los derechos reservados.'
     },
     consent: {
@@ -136,13 +136,15 @@ export const translations = {
       warning: 'Advertencia Importante',
       content: 'Al utilizar Studio Nexora, usted declara que:',
       terms: [
-        'Es responsable del material que adquiera y del uso que se le dé',
-        'Studio Nexora NO se hace responsable del uso indebido de las imágenes generadas',
-        'Está PROHIBIDO subir fotografías con contenido de pornografía',
-        'Está PROHIBIDO subir contenido de racismo o discriminación',
-        'Está PROHIBIDO subir pornografía infantil o contenido ilegal',
-        'Las imágenes cargadas serán procesadas con IA para mejorar su calidad',
-        'Acepta nuestros términos y condiciones de servicio'
+        'Es mayor de 18 años y tiene capacidad legal para utilizar este servicio',
+        'Es el único responsable del material que sube y del uso que se le dé a las imágenes generadas',
+        'Studio Nexora NO se hace responsable del uso indebido, ilegal o no autorizado de las imágenes generadas',
+        'Está PROHIBIDO subir fotografías con contenido pornográfico de cualquier tipo',
+        'Está PROHIBIDO subir contenido racista, discriminatorio, de odio o que promueva violencia',
+        'Está PROHIBIDO subir fotografías de menores de edad o pornografía infantil',
+        'Está PROHIBIDO subir cualquier contenido ilegal, que viole derechos de terceros o que sea ofensivo',
+        'Las imágenes cargadas serán procesadas con IA para mejorar su calidad y generar versiones profesionales',
+        'Acepta nuestros términos y condiciones de servicio y política de privacidad completos'
       ],
       checkbox: 'He leído y acepto los términos de uso. Soy responsable del contenido que subo.',
       accept: 'Aceptar y Continuar',
@@ -296,7 +298,7 @@ export const translations = {
       contact: 'Contact',
       faq: 'FAQ',
       disclaimer: 'Legal Notice',
-      disclaimerText: 'This service uses artificial intelligence to generate images. Results may vary based on original photo quality. We are not responsible for misuse of generated images. By using this service, you agree to our terms and conditions. All generated images are property of the user who requested them.',
+      disclaimerText: 'This service uses artificial intelligence to generate professional images. By using Studio Nexora, you declare and agree that: (1) You are 18 years or older and have legal capacity to contract this service; (2) You are solely responsible for the content you upload and the use of generated images; (3) It is PROHIBITED to upload pornographic, racist, discriminatory, underage content, or any illegal material; (4) Studio Nexora is NOT responsible for misuse, illegal or unauthorized use of generated images; (5) Results may vary based on original photo quality; (6) All generated images are property of the user who requested them. By using this service, you agree to our complete terms and conditions.',
       rights: 'All rights reserved.'
     },
     consent: {
@@ -304,13 +306,15 @@ export const translations = {
       warning: 'Important Warning',
       content: 'By using Studio Nexora, you declare that:',
       terms: [
-        'You are responsible for the material you acquire and its use',
-        'Studio Nexora is NOT responsible for misuse of generated images',
-        'It is PROHIBITED to upload photographs with pornographic content',
-        'It is PROHIBITED to upload racist or discriminatory content',
-        'It is PROHIBITED to upload child pornography or illegal content',
-        'Uploaded images will be processed with AI to improve their quality',
-        'You accept our terms and conditions of service'
+        'You are 18 years or older and have legal capacity to use this service',
+        'You are solely responsible for the material you upload and the use of generated images',
+        'Studio Nexora is NOT responsible for misuse, illegal or unauthorized use of generated images',
+        'It is PROHIBITED to upload photographs with pornographic content of any kind',
+        'It is PROHIBITED to upload racist, discriminatory, hateful content or content that promotes violence',
+        'It is PROHIBITED to upload photographs of minors or child pornography',
+        'It is PROHIBITED to upload any illegal content, content that violates third-party rights, or offensive content',
+        'Uploaded images will be processed with AI to improve their quality and generate professional versions',
+        'You accept our complete terms and conditions of service and privacy policy'
       ],
       checkbox: 'I have read and accept the terms of use. I am responsible for the content I upload.',
       accept: 'Accept and Continue',

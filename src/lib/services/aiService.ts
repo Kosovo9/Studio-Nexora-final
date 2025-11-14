@@ -5,6 +5,8 @@
  * and then call an image generation API (Replicate, Stability AI, etc.)
  */
 
+import { logger } from '../utils/logger';
+
 const GOOGLE_AI_API_KEY = import.meta.env.VITE_GOOGLE_AI_API_KEY || 'AIzaSyCkL5za2v-SmEd778ba-sUBuO6ldRVJPbE';
 const GOOGLE_AI_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
 
@@ -72,7 +74,7 @@ async function enhancePromptWithGemini(
     // Fallback to manual enhancement
     return enhancePrompt(basePrompt, version, style);
   } catch (error: any) {
-    console.warn('Failed to enhance prompt with Gemini, using manual enhancement:', error);
+    logger.warn('Failed to enhance prompt with Gemini, using manual enhancement:', error);
     return enhancePrompt(basePrompt, version, style);
   }
 }
@@ -104,7 +106,7 @@ export async function generateImage(
       error: null,
     };
   } catch (error: any) {
-    console.error('Error generating image:', error);
+    logger.error('Error generating image:', error);
     return { data: null, error: error.message || 'Failed to generate image' };
   }
 }
@@ -143,7 +145,7 @@ async function generateImageWithAPI(
   
   // Si no hay token de Replicate, usar Stability AI como fallback
   if (!REPLICATE_API_TOKEN) {
-    console.warn('Replicate API token not configured, using Stability AI fallback');
+    logger.warn('Replicate API token not configured, using Stability AI fallback');
     return await generateImageWithStabilityAI(prompt, version);
   }
 
@@ -196,7 +198,7 @@ async function generateImageWithAPI(
       throw new Error(`Generation failed: ${result.error || 'Unknown error'}`);
     }
   } catch (error: any) {
-    console.error('Replicate API error:', error);
+    logger.error('Replicate API error:', error);
     // Fallback a Stability AI
     return await generateImageWithStabilityAI(prompt, version);
   }
@@ -212,7 +214,7 @@ async function generateImageWithStabilityAI(
   const STABILITY_API_KEY = import.meta.env.VITE_STABILITY_API_KEY;
   
   if (!STABILITY_API_KEY) {
-    console.warn('No image generation API configured, using placeholder');
+    logger.warn('No image generation API configured, using placeholder');
     return `https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=800`;
   }
 
@@ -254,7 +256,7 @@ async function generateImageWithStabilityAI(
     
     throw new Error('No image generated');
   } catch (error: any) {
-    console.error('Stability AI error:', error);
+    logger.error('Stability AI error:', error);
     // Último fallback: placeholder
     return `https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=800`;
   }

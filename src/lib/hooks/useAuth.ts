@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../supabase';
 import { getCurrentUser, signIn, signUp, signOut, updateProfile, type UserProfile } from '../services/authService';
+import { logger } from '../utils/logger';
 
 export function useAuth() {
   const [user, setUser] = useState<UserProfile | null>(null);
@@ -35,7 +36,7 @@ export function useAuth() {
         setUser(data);
       }
     } catch (error) {
-      console.error('Error checking user:', error);
+      logger.error('Error checking user:', error);
     } finally {
       setLoading(false);
     }

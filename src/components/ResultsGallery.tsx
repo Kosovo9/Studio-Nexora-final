@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Download, Image as ImageIcon, X, ChevronLeft, ChevronRight, CheckCircle } from 'lucide-react';
 import { Language } from '../lib/translations';
 import { supabase, STORAGE_BUCKETS } from '../lib/supabase';
+import { logger } from '../lib/utils/logger';
+import { showToast } from './Toast';
 
 interface GeneratedPhoto {
   id: string;
@@ -42,7 +44,7 @@ export default function ResultsGallery({ lang, orderId, onClose }: ResultsGaller
         setPhotos(data);
       }
     } catch (error) {
-      console.error('Error loading photos:', error);
+      logger.error('Error loading photos:', error);
     } finally {
       setLoading(false);
     }
@@ -68,8 +70,8 @@ export default function ResultsGallery({ lang, orderId, onClose }: ResultsGaller
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.error('Error downloading photo:', error);
-      alert(lang === 'es' ? 'Error al descargar la imagen' : 'Error downloading image');
+      logger.error('Error downloading photo:', error);
+      showToast(lang === 'es' ? 'Error al descargar la imagen' : 'Error downloading image', 'error');
     } finally {
       setDownloading(null);
     }

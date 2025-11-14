@@ -6,6 +6,7 @@
  */
 
 import { processPurchase } from '../../lib/webhooks/purchase-webhook';
+import { logger } from '../../lib/utils/logger';
 
 export interface PurchaseWebhookRequest {
   order_id: string;
@@ -52,7 +53,7 @@ export async function handlePurchaseWebhook(
 
     return result;
   } catch (error: any) {
-    console.error('Error en webhook handler:', error);
+    logger.error('Error en webhook handler:', error);
     return {
       success: false,
       processed: {},

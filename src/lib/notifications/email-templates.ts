@@ -4,6 +4,8 @@
  * NO afecta UI/UX
  */
 
+import { logger } from '../utils/logger';
+
 export interface EmailData {
   to: string | string[];
   subject: string;
@@ -25,7 +27,7 @@ export async function sendEmail(data: EmailData): Promise<{ success: boolean; er
     }
 
     // Fallback: solo loguear (para desarrollo)
-    console.log('📧 Email notification (dev mode):', {
+    logger.log('📧 Email notification (dev mode):', {
       to: data.to,
       subject: data.subject,
       html: data.html.substring(0, 100) + '...',
@@ -33,7 +35,7 @@ export async function sendEmail(data: EmailData): Promise<{ success: boolean; er
 
     return { success: true, error: null };
   } catch (error: any) {
-    console.error('Error enviando email:', error);
+    logger.error('Error enviando email:', error);
     return { success: false, error: error.message };
   }
 }
@@ -45,7 +47,7 @@ async function sendWithResend(data: EmailData): Promise<{ success: boolean; erro
   try {
     const apiKey = import.meta.env.VITE_RESEND_API_KEY;
     if (!apiKey) {
-      console.warn('RESEND_API_KEY no configurada, usando modo desarrollo');
+      logger.warn('RESEND_API_KEY no configurada, usando modo desarrollo');
       return { success: true, error: null };
     }
 
@@ -82,7 +84,7 @@ async function sendWithSendGrid(data: EmailData): Promise<{ success: boolean; er
   try {
     const apiKey = import.meta.env.VITE_SENDGRID_API_KEY;
     if (!apiKey) {
-      console.warn('SENDGRID_API_KEY no configurada, usando modo desarrollo');
+      logger.warn('SENDGRID_API_KEY no configurada, usando modo desarrollo');
       return { success: true, error: null };
     }
 

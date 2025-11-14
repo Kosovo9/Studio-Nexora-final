@@ -4,6 +4,7 @@ import { Language } from '../lib/translations';
 import { useAuth } from '../lib/hooks/useAuth';
 import { getUserOrders, type Order } from '../lib/services/orderService';
 import { supabase } from '../lib/supabase';
+import { logger } from '../lib/utils/logger';
 
 interface UserDashboardProps {
   lang: Language;
@@ -31,7 +32,7 @@ export default function UserDashboard({ lang, onViewResults }: UserDashboardProp
         setOrders(data);
       }
     } catch (error) {
-      console.error('Error loading orders:', error);
+      logger.error('Error loading orders:', error);
     } finally {
       setLoading(false);
     }

@@ -3,6 +3,8 @@
  * Handles email notifications for referral program
  */
 
+import { logger } from '../utils/logger';
+
 export interface EmailNotification {
   to: string;
   subject: string;
@@ -59,7 +61,7 @@ export async function sendReferralWelcomeEmail(
 
     // TODO: Integrar con servicio de email real (SendGrid, Resend, etc.)
     // Por ahora, solo logueamos
-    console.log('📧 Email notification:', { to: email, subject, html });
+    logger.log('📧 Email notification:', { to: email, subject, html });
 
     return { success: true, error: null };
   } catch (error: any) {
@@ -117,7 +119,7 @@ export async function sendReferralSuccessEmail(
     `;
 
     // TODO: Integrar con servicio de email real
-    console.log('📧 Email notification:', { to: email, subject, html });
+    logger.log('📧 Email notification:', { to: email, subject, html });
 
     return { success: true, error: null };
   } catch (error: any) {
@@ -133,7 +135,7 @@ export async function sendNotificationEmail(
 ): Promise<{ success: boolean; error: string | null }> {
   try {
     // TODO: Integrar con servicio de email real
-    console.log('📧 Email notification:', notification);
+    logger.log('📧 Email notification:', notification);
 
     return { success: true, error: null };
   } catch (error: any) {

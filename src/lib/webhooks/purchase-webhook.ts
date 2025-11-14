@@ -10,6 +10,7 @@ import { ReferralService } from '../referrals/referral-service';
 import { sendAffiliateSaleNotification, sendReferralUsedNotification } from '../notifications/notification-service';
 import { calculateCashFlowReserve, checkCashFlowHealth } from '../cash-flow/reserve-calculator';
 import { supabase } from '../../supabase';
+import { logger } from '../utils/logger';
 
 const affiliateService = new AffiliateService();
 const referralService = new ReferralService();
@@ -42,11 +43,11 @@ export async function processPurchase(purchaseData: {
   };
   error: string | null;
 }> {
-  console.log('🔄 Procesando compra:', purchaseData.order_id);
+  logger.log('🔄 Procesando compra:', purchaseData.order_id);
 
   // Validar que el pago esté completado
   if (!purchaseData.payment_completed) {
-    console.log('⏸️ Compra pendiente de pago');
+    logger.log('⏸️ Compra pendiente de pago');
     return {
       success: true,
       processed: {},
@@ -64,7 +65,7 @@ export async function processPurchase(purchaseData: {
     // PASO 1: Identificar tipo de código
     // ========================================
     if (!purchaseData.promo_code) {
-      console.log('✅ Compra sin código promocional');
+      logger.log('✅ Compra sin código promocional');
       return {
         success: true,
         processed,
@@ -76,13 +77,13 @@ export async function processPurchase(purchaseData: {
     const isAffiliateCode = code.startsWith('AFF-');
     const isReferralCode = code.startsWith('REF-');
 
-    console.log('🔍 Código detectado:', code);
+    logger.log('🔍 Código detectado:', code);
 
     // ========================================
     // PASO 2A: Procesar CÓDIGO DE AFILIADO
     // ========================================
     if (isAffiliateCode) {
-      console.log('💰 Procesando venta de AFILIADO');
+      logger.log('💰 Procesando venta de AFILIADO');
 
       // Registrar venta y calcular comisión
       const { earning, error } = await affiliateService.recordAffiliateSale({
@@ -94,9 +95,9 @@ export async function processPurchase(purchaseData: {
       });
 
       if (error) {
-        console.error('❌ Error procesando afiliado:', error);
+        logger.error('❌ Error procesando afiliado:', error);
       } else {
-        console.log(`✅ Comisión registrada: $${earning!.commission_amount} MXN`);
+        logger.log(`✅ Comisión registrada: $${earning!.commission_amount} MXN`);
         processed.affiliate = true;
 
         // Obtener datos del afiliado para notificación
@@ -119,7 +120,7 @@ export async function processPurchase(purchaseData: {
             payment_scheduled_date: new Date(earning.payment_scheduled_date || new Date()),
           });
 
-          console.log('📧 Notificaciones enviadas al afiliado y admin');
+          logger.log('📧 Notificaciones enviadas al afiliado y admin');
         }
       }
     }
@@ -128,7 +129,7 @@ export async function processPurchase(purchaseData: {
     // PASO 2B: Procesar CÓDIGO DE REFERIDO
     // ========================================
     if (isReferralCode) {
-      console.log('🎁 Procesando código de REFERIDO');
+      logger.log('🎁 Procesando código de REFERIDO');
 
       // Aplicar descuento
       const { discount_amount, final_amount, error } = await referralService.applyReferralDiscount({
@@ -140,10 +141,10 @@ export async function processPurchase(purchaseData: {
       });
 
       if (error) {
-        console.error('❌ Error aplicando descuento:', error);
+        logger.error('❌ Error aplicando descuento:', error);
       } else {
-        console.log(`✅ Descuento aplicado: -$${discount_amount} MXN`);
-        console.log(`💵 Monto final: $${final_amount} MXN`);
+        logger.log(`✅ Descuento aplicado: -$${discount_amount} MXN`);
+        logger.log(`💵 Monto final: $${final_amount} MXN`);
         processed.referral = true;
 
         // Enviar notificación
@@ -157,24 +158,24 @@ export async function processPurchase(purchaseData: {
           order_date: new Date(),
         });
 
-        console.log('📧 Notificación enviada al admin');
+        logger.log('📧 Notificación enviada al admin');
       }
     }
 
     // ========================================
     // PASO 3: Actualizar RESERVA DE EFECTIVO
     // ========================================
-    console.log('💼 Calculando reserva de efectivo...');
+    logger.log('💼 Calculando reserva de efectivo...');
     const reserveResult = await calculateCashFlowReserve();
 
     if (reserveResult.data) {
       const reserve = reserveResult.data;
-      console.log('📊 RESERVA DE EFECTIVO:');
-      console.log(`   - Total necesario: $${reserve.total_reserve_needed.toFixed(2)} MXN`);
-      console.log(`   - Comisiones: $${reserve.pending_commissions.toFixed(2)} MXN`);
-      console.log(`   - Descuentos: $${reserve.pending_discounts.toFixed(2)} MXN`);
-      console.log(`   - Buffer (20%): $${reserve.buffer_amount.toFixed(2)} MXN`);
-      console.log(`   - Próximo pago: ${reserve.next_payment_date.toLocaleDateString('es-MX')}`);
+      logger.log('📊 RESERVA DE EFECTIVO:');
+      logger.log(`   - Total necesario: $${reserve.total_reserve_needed.toFixed(2)} MXN`);
+      logger.log(`   - Comisiones: $${reserve.pending_commissions.toFixed(2)} MXN`);
+      logger.log(`   - Descuentos: $${reserve.pending_discounts.toFixed(2)} MXN`);
+      logger.log(`   - Buffer (20%): $${reserve.buffer_amount.toFixed(2)} MXN`);
+      logger.log(`   - Próximo pago: ${reserve.next_payment_date.toLocaleDateString('es-MX')}`);
 
       // ========================================
       // PASO 4: ALERTAS DE EFECTIVO
@@ -184,20 +185,20 @@ export async function processPurchase(purchaseData: {
 
       const healthCheck = await checkCashFlowHealth(available_cash);
       if (healthCheck.data) {
-        console.log(healthCheck.data.message);
+        logger.log(healthCheck.data.message);
 
         if (healthCheck.data.alert_level === 'critical') {
           // Enviar alerta urgente al admin
-          console.log('🚨 ALERTA CRÍTICA: Fondos insuficientes para pagos programados');
+          logger.error('🚨 ALERTA CRÍTICA: Fondos insuficientes para pagos programados');
           
           // TODO: Enviar email de alerta al admin
           const adminEmail = import.meta.env.VITE_ADMIN_EMAIL || 'admin@studionexora.com';
-          console.log(`📧 Enviar alerta crítica a: ${adminEmail}`);
+          logger.log(`📧 Enviar alerta crítica a: ${adminEmail}`);
         }
       }
     }
 
-    console.log('✅ Compra procesada completamente');
+    logger.log('✅ Compra procesada completamente');
 
     return {
       success: true,
@@ -205,7 +206,7 @@ export async function processPurchase(purchaseData: {
       error: null,
     };
   } catch (error: any) {
-    console.error('❌ Error procesando compra:', error);
+    logger.error('❌ Error procesando compra:', error);
     return {
       success: false,
       processed,
@@ -249,7 +250,7 @@ export async function handleOrderCompleted(orderId: string): Promise<void> {
       .single();
 
     if (error || !order) {
-      console.error('Error obteniendo orden:', error);
+      logger.error('Error obteniendo orden:', error);
       return;
     }
 
@@ -263,7 +264,7 @@ export async function handleOrderCompleted(orderId: string): Promise<void> {
       payment_status: order.payment_status,
     });
   } catch (error) {
-    console.error('Error en handleOrderCompleted:', error);
+    logger.error('Error en handleOrderCompleted:', error);
   }
 }
 

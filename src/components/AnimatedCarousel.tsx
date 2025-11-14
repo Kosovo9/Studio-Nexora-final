@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { logger } from '../lib/utils/logger';
 
 interface AnimatedCarouselProps {
   images: string[];
@@ -25,7 +26,7 @@ export default function AnimatedCarousel({ images, direction }: AnimatedCarousel
           }
           return newOffset;
         } catch (error) {
-          console.error('Error in carousel animation:', error);
+          logger.error('Error in carousel animation:', error);
           return prev;
         }
       });

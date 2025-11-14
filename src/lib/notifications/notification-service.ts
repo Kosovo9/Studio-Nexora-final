@@ -6,6 +6,7 @@
 
 import { supabase } from '../../supabase';
 import { sendEmail } from './email-templates';
+import { logger } from '../utils/logger';
 import { affiliateSaleEmail, referralUsedEmail, cashFlowAlertEmail, paymentProcessedEmail, welcomeAffiliateEmail, nearPayoutThresholdEmail } from './email-templates';
 
 /**
@@ -74,7 +75,7 @@ export async function sendAffiliateSaleNotification(data: {
       });
     } catch (err) {
       // Si la tabla no existe, continuar sin error
-      console.warn('Tabla notifications no existe, continuando sin guardar notificación');
+      logger.warn('Tabla notifications no existe, continuando sin guardar notificación');
     }
 
     return { success: true, error: null };

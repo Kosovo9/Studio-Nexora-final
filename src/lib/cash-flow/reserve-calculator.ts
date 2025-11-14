@@ -5,6 +5,7 @@
  */
 
 import { supabase } from '../../supabase';
+import { logger } from '../utils/logger';
 
 export interface CashFlowReserve {
   total_reserve_needed: number;
@@ -40,7 +41,7 @@ export async function calculateCashFlowReserve(): Promise<{
       .lte('payment_hold_until', next15Days.toISOString());
 
     if (commissionsError) {
-      console.warn('Error calculando comisiones:', commissionsError);
+      logger.warn('Error calculando comisiones:', commissionsError);
     }
 
     const pending_commissions = upcomingCommissions?.reduce(
@@ -55,7 +56,7 @@ export async function calculateCashFlowReserve(): Promise<{
       .gte('created_at', new Date(today.getTime() - 15 * 24 * 60 * 60 * 1000).toISOString());
 
     if (discountsError) {
-      console.warn('Error calculando descuentos:', discountsError);
+      logger.warn('Error calculando descuentos:', discountsError);
     }
 
     const totalRecentDiscounts = recentDiscounts?.reduce(
@@ -206,7 +207,7 @@ export async function saveCashFlowReserve(reserve: CashFlowReserve): Promise<{
 
     if (error) {
       // Si la tabla no existe, no es crítico
-      console.warn('Tabla cash_flow_reserves no existe, continuando sin guardar');
+      logger.warn('Tabla cash_flow_reserves no existe, continuando sin guardar');
       return { success: true, error: null };
     }
 

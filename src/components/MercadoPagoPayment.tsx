@@ -8,6 +8,7 @@ import {
   getMercadoPagoLink 
 } from '../lib/config/mercadopago';
 import { Copy, Check, ExternalLink } from 'lucide-react';
+import { logger } from '../lib/utils/logger';
 
 interface MercadoPagoPaymentProps {
   lang: Language;
@@ -25,7 +26,7 @@ export default function MercadoPagoPayment({ lang, onCopy }: MercadoPagoPaymentP
       setTimeout(() => setCopiedField(null), 2000);
       onCopy?.(field);
     } catch (error) {
-      console.error('Failed to copy:', error);
+      logger.error('Failed to copy:', error);
     }
   };
 

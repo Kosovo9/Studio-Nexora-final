@@ -3,6 +3,8 @@
  * Handles Stripe, Lemon Squeezy, and Mercado Pago integrations
  */
 
+import { logger } from '../utils/logger';
+
 const STRIPE_PUBLIC_KEY = import.meta.env.VITE_STRIPE_PUBLIC_KEY || '';
 const STRIPE_SECRET_KEY = import.meta.env.VITE_STRIPE_SECRET_KEY || ''; // Solo para backend
 const LEMONSQUEEZY_API_KEY = import.meta.env.VITE_LEMONSQUEEZY_API_KEY || '';
@@ -71,7 +73,7 @@ export async function createStripeCheckout(
         };
       }
     } catch (apiError) {
-      console.warn('Backend API not available, using direct Stripe integration');
+      logger.warn('Backend API not available, using direct Stripe integration');
     }
 
     // Opción 2: Usar Stripe directamente (requiere @stripe/stripe-js)

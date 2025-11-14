@@ -94,7 +94,7 @@ function App() {
   };
 
   const handleSelectVersion = (version: 'A' | 'B', imageIndex: number) => {
-    console.log(`Selected version ${version} for image ${imageIndex}`);
+    logger.log(`Selected version ${version} for image ${imageIndex}`);
   };
 
   const handleBackToLanding = () => {

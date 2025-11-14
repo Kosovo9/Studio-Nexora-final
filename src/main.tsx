@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { ClerkProvider } from '@clerk/clerk-react';
 import { getClerkPublishableKey, isClerkConfigured } from './lib/auth/clerk';
 import { validateEnv, isEnvValid, envErrors } from './lib/config/env';
+import { verifyAll } from './lib/utils/verification';
 import App from './App.tsx';
 import ErrorBoundary from './components/ErrorBoundary';
 import { logger } from './lib/utils/logger';
@@ -18,6 +19,11 @@ if (!isEnvValid) {
 logger.log('🚀 Iniciando aplicación...');
 logger.log('📍 URL:', window.location.href);
 logger.log('🌐 User Agent:', navigator.userAgent);
+
+// Verify all services (async, don't block render)
+verifyAll().catch((error) => {
+  logger.error('Error during verification:', error);
+});
 
 try {
   const clerkKey = getClerkPublishableKey();

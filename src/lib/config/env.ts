@@ -104,9 +104,13 @@ export function validateEnv(): { valid: boolean; errors: string[]; config: EnvCo
 const validation = validateEnv();
 
 if (!validation.valid) {
-  console.error('❌ Environment validation failed:');
-  validation.errors.forEach(error => console.error(`  - ${error}`));
-  console.error('\nPlease check your .env file or environment variables.');
+  // Use logger if available, otherwise console (for initial load)
+  const logError = typeof window !== 'undefined' && (window as any).__logger 
+    ? (window as any).__logger.error 
+    : console.error;
+  logError('❌ Environment validation failed:');
+  validation.errors.forEach(error => logError(`  - ${error}`));
+  logError('\nPlease check your .env file or environment variables.');
 }
 
 export const env = validation.config;

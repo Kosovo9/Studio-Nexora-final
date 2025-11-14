@@ -5,9 +5,10 @@ import { Language } from '../lib/translations';
 interface HeaderProps {
   lang: Language;
   onLanguageChange: (lang: Language) => void;
+  onGetStarted?: () => void;
 }
 
-export default function Header({ lang, onLanguageChange }: HeaderProps) {
+export default function Header({ lang, onLanguageChange, onGetStarted }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const menuItems = [
@@ -67,7 +68,10 @@ export default function Header({ lang, onLanguageChange }: HeaderProps) {
               </button>
             </div>
 
-            <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-bold text-lg transition-all shadow-lg hover:shadow-xl">
+            <button
+              onClick={onGetStarted}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-bold text-lg transition-all shadow-lg hover:shadow-xl"
+            >
               {lang === 'es' ? 'Comenzar' : 'Get Started'}
             </button>
           </div>

@@ -13,9 +13,13 @@ import Footer from './components/Footer';
 import ConsentModal from './components/ConsentModal';
 import HelpDeskChat from './components/HelpDeskChat';
 import SecurityProtection from './components/SecurityProtection';
+import AuthModal from './components/AuthModal';
+import UserDashboard from './components/UserDashboard';
+import ResultsGallery from './components/ResultsGallery';
 import { Language } from './lib/translations';
+import { useAuth } from './lib/hooks/useAuth';
 
-type AppView = 'landing' | 'upload' | 'preview' | 'payment';
+type AppView = 'landing' | 'upload' | 'preview' | 'payment' | 'dashboard' | 'results';
 
 function App() {
   const [lang, setLang] = useState<Language>('es');
@@ -24,6 +28,10 @@ function App() {
   const [uploadedPhotos, setUploadedPhotos] = useState<File[]>([]);
   const [showConsentModal, setShowConsentModal] = useState(false);
   const [consentAccepted, setConsentAccepted] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
+  const { user } = useAuth();
 
   const packagePhotoCount: Record<string, number> = {
     '1_photo': 1,
@@ -41,10 +49,19 @@ function App() {
   };
 
   const handleSelectPackage = (packageType: string) => {
+    // Si no está autenticado, mostrar modal de registro automáticamente
+    if (!user) {
+      setAuthMode('register');
+      setShowAuthModal(true);
+      // Guardar el paquete seleccionado para después del registro
+      setSelectedPackage(packageType);
+      return;
+    }
     setSelectedPackage(packageType);
     setCurrentView('upload');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
 
   const handlePhotosSelected = (photos: File[]) => {
     if (!consentAccepted && photos.length > 0) {
@@ -94,7 +111,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header lang={lang} onLanguageChange={setLang} />
+      <Header
+        lang={lang}
+        onLanguageChange={setLang}
+        onGetStarted={handleGetStarted}
+      />
 
       {currentView === 'landing' && (
         <>
@@ -198,6 +219,28 @@ function App() {
         </div>
       )}
 
+      {currentView === 'dashboard' && (
+        <UserDashboard
+          lang={lang}
+          onViewResults={(orderId) => {
+            setSelectedOrderId(orderId);
+            setCurrentView('results');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+        />
+      )}
+
+      {currentView === 'results' && selectedOrderId && (
+        <ResultsGallery
+          lang={lang}
+          orderId={selectedOrderId}
+          onClose={() => {
+            setCurrentView('dashboard');
+            setSelectedOrderId(null);
+          }}
+        />
+      )}
+
       <Footer lang={lang} onLanguageChange={setLang} />
       <HelpDeskChat lang={lang} />
       <ConsentModal
@@ -205,6 +248,19 @@ function App() {
         isOpen={showConsentModal}
         onAccept={handleConsentAccept}
         onDecline={handleConsentDecline}
+      />
+      <AuthModal
+        lang={lang}
+        isOpen={showAuthModal}
+        onClose={() => {
+          setShowAuthModal(false);
+          // Si hay un paquete seleccionado y el usuario se autenticó, continuar al upload
+          if (user && selectedPackage) {
+            setCurrentView('upload');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }}
+        initialMode={authMode}
       />
       <SecurityProtection />
     </div>

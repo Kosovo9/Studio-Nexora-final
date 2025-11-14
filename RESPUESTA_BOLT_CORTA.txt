@@ -1,0 +1,35 @@
+Hola BOLT,
+
+Gracias por tu consulta. Aquí están los detalles para implementar las mejoras:
+
+**CONTEXTO:**
+Studio Nexora es una app de retoques fotográficos profesionales con IA. Los usuarios suben selfies y generan fotos profesionales en diferentes ubicaciones (ciudades famosas).
+
+**1. SECCIÓN DE RECOMENDACIONES (15% prominencia):**
+- Ubicación: Entre "How It Works" y "Sample Gallery"
+- Contenido: 5-6 ciudades más populares con imágenes, badges, estadísticas de engagement
+- Ciudades sugeridas: Times Square NYC, Torre Eiffel París, Shibuya Tokio, Big Ben Londres, Burj Khalifa Dubai, Coliseo Romano
+- Diseño: Cards horizontales con scroll, ~15% viewport height
+
+**2. INFORMACIÓN DE UBICACIÓN EN FORMULARIOS BLANCOS:**
+- PhotoUpload: Selector de ubicación con preview
+- Pricing: Badges mostrando ubicaciones incluidas en cada plan
+- PreviewComparison: Nombre de ubicación seleccionada + estadísticas
+- Cada ubicación muestra: nombre, país, engagement stats, dificultad, tags
+
+**3. DIFERENCIACIÓN DE UBICACIONES:**
+- Badges únicos por ciudad (NYC: "Más Popular", París: "Más Romántica", etc.)
+- Paletas de colores diferentes
+- Iconos/emojis específicos
+- Estadísticas y descripciones únicas
+
+**DATOS DISPONIBLES:**
+Ya tenemos cities.json con 15 ubicaciones (NYC, París, Tokio, Londres, Dubai, Roma) con prompts, tags y dificultad.
+
+**IMPLEMENTACIÓN:**
+- Nuevo componente: RecommendationsSection.tsx
+- Modificar: PhotoUpload, Pricing, PreviewComparison
+- Nuevo hook: useLocationEngagement.ts (para stats)
+
+¿Necesitas más detalles sobre diseño, estructura de datos o integración?
+

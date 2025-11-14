@@ -2,22 +2,30 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ClerkProvider } from '@clerk/clerk-react';
 import { getClerkPublishableKey, isClerkConfigured } from './lib/auth/clerk';
+import { validateEnv, isEnvValid, envErrors } from './lib/config/env';
 import App from './App.tsx';
 import ErrorBoundary from './components/ErrorBoundary';
+import { logger } from './lib/utils/logger';
 import './index.css';
 
-// Logging para debugging
-console.log('🚀 Iniciando aplicación...');
-console.log('📍 URL:', window.location.href);
-console.log('🌐 User Agent:', navigator.userAgent);
+// Validate environment variables
+const envValidation = validateEnv();
+if (!isEnvValid) {
+  logger.error('❌ Environment validation failed:', envErrors);
+}
+
+// Logging para debugging (solo en desarrollo)
+logger.log('🚀 Iniciando aplicación...');
+logger.log('📍 URL:', window.location.href);
+logger.log('🌐 User Agent:', navigator.userAgent);
 
 try {
   const clerkKey = getClerkPublishableKey();
   const clerkConfigured = isClerkConfigured();
   
-  console.log('🔐 Clerk configurado:', clerkConfigured);
+  logger.log('🔐 Clerk configurado:', clerkConfigured);
   if (clerkConfigured) {
-    console.log('🔑 Clerk Key:', clerkKey ? 'Presente' : 'Faltante');
+    logger.log('🔑 Clerk Key:', clerkKey ? 'Presente' : 'Faltante');
   }
 
   // Si Clerk está configurado, usarlo. Si no, usar Supabase Auth
@@ -32,12 +40,12 @@ try {
   // Verificar que el elemento root existe antes de renderizar
   const rootElement = document.getElementById('root');
   if (!rootElement) {
-    console.error('❌ Root element not found!');
+    logger.error('❌ Root element not found!');
     throw new Error('Root element not found. Make sure index.html has a <div id="root"></div> element.');
   }
 
-  console.log('✅ Root element encontrado');
-  console.log('🎨 Renderizando aplicación...');
+  logger.log('✅ Root element encontrado');
+  logger.log('🎨 Renderizando aplicación...');
 
   createRoot(rootElement).render(
     <StrictMode>
@@ -47,9 +55,9 @@ try {
     </StrictMode>
   );
 
-  console.log('✅ Aplicación renderizada exitosamente');
+  logger.log('✅ Aplicación renderizada exitosamente');
 } catch (error) {
-  console.error('❌ Error fatal al iniciar aplicación:', error);
+  logger.error('❌ Error fatal al iniciar aplicación:', error);
   document.body.innerHTML = `
     <div style="padding: 20px; font-family: Arial; background: #1a1a1a; color: white; min-height: 100vh; display: flex; align-items: center; justify-content: center;">
       <div style="text-align: center; max-width: 600px;">

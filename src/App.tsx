@@ -20,6 +20,8 @@ import { Language } from './lib/translations';
 import { useAuth } from './lib/hooks/useAuth';
 import { useOrder } from './lib/hooks/useOrder';
 import { uploadPhoto } from './lib/services/photoService';
+import { useToast, ToastContainer } from './components/Toast';
+import { logger } from './lib/utils/logger';
 
 type AppView = 'landing' | 'upload' | 'preview' | 'payment' | 'dashboard' | 'results';
 
@@ -36,6 +38,7 @@ function App() {
   const { user } = useAuth();
   const { create: createOrder, checkout: createCheckout } = useOrder();
   const [processingPayment, setProcessingPayment] = useState(false);
+  const { toasts, removeToast } = useToast();
 
   const packagePhotoCount: Record<string, number> = {
     '1_photo': 1,
@@ -225,7 +228,8 @@ function App() {
                     }
 
                     if (uploadIds.length === 0) {
-                      alert(lang === 'es' ? 'Error al subir fotos' : 'Error uploading photos');
+                      logger.error('Failed to upload photos');
+                      // Toast will be shown by useToast
                       return;
                     }
 
@@ -238,7 +242,7 @@ function App() {
                     });
 
                     if (!order) {
-                      alert(lang === 'es' ? 'Error al crear orden' : 'Error creating order');
+                      logger.error('Failed to create order');
                       return;
                     }
 
@@ -247,11 +251,10 @@ function App() {
                     if (checkoutUrl) {
                       window.location.href = checkoutUrl;
                     } else {
-                      alert(lang === 'es' ? 'Error al crear checkout' : 'Error creating checkout');
+                      logger.error('Failed to create checkout');
                     }
                   } catch (error: any) {
-                    console.error('Payment error:', error);
-                    alert(lang === 'es' ? 'Error al procesar pago' : 'Error processing payment');
+                    logger.error('Payment error:', error);
                   } finally {
                     setProcessingPayment(false);
                   }
@@ -321,6 +324,7 @@ function App() {
         }}
         initialMode={authMode}
       />
+      <ToastContainer toasts={toasts} onClose={removeToast} />
       <SecurityProtection />
     </div>
   );

@@ -13,6 +13,11 @@ export default defineConfig({
       compress: {
         drop_console: true,
         drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.debug'],
+        passes: 3,
+      },
+      format: {
+        comments: false,
       },
     },
     rollupOptions: {
@@ -20,10 +25,19 @@ export default defineConfig({
         manualChunks: {
           'react-vendor': ['react', 'react-dom'],
           'lucide': ['lucide-react'],
+          'supabase': ['@supabase/supabase-js'],
+          'clerk': ['@clerk/clerk-react'],
         },
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]',
       },
     },
     chunkSizeWarningLimit: 1000,
+    target: 'es2022',
+    cssCodeSplit: true,
+    sourcemap: false,
+    reportCompressedSize: false,
   },
   server: {
     headers: {

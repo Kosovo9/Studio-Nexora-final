@@ -18,6 +18,8 @@ import UserDashboard from './components/UserDashboard';
 import ResultsGallery from './components/ResultsGallery';
 import { Language } from './lib/translations';
 import { useAuth } from './lib/hooks/useAuth';
+import { useOrder } from './lib/hooks/useOrder';
+import { uploadPhoto } from './lib/services/photoService';
 
 type AppView = 'landing' | 'upload' | 'preview' | 'payment' | 'dashboard' | 'results';
 
@@ -32,6 +34,8 @@ function App() {
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
   const { user } = useAuth();
+  const { create: createOrder, checkout: createCheckout } = useOrder();
+  const [processingPayment, setProcessingPayment] = useState(false);
 
   const packagePhotoCount: Record<string, number> = {
     '1_photo': 1,
@@ -205,8 +209,63 @@ function App() {
             />
 
             <div className="mt-12 text-center">
-              <button className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-12 py-5 rounded-full text-xl font-bold transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105">
-                {lang === 'es' ? 'Proceder al Pago' : 'Proceed to Payment'}
+              <button
+                onClick={async () => {
+                  if (!user || !selectedPackage) return;
+                  
+                  setProcessingPayment(true);
+                  try {
+                    // Subir fotos primero
+                    const uploadIds: string[] = [];
+                    for (const photo of uploadedPhotos) {
+                      const result = await uploadPhoto(photo, user.id, 'portrait');
+                      if (result.data) {
+                        uploadIds.push(result.data.id);
+                      }
+                    }
+
+                    if (uploadIds.length === 0) {
+                      alert(lang === 'es' ? 'Error al subir fotos' : 'Error uploading photos');
+                      return;
+                    }
+
+                    // Crear orden
+                    const order = await createOrder({
+                      userId: user.id,
+                      packageType: selectedPackage,
+                      photoUploadIds: uploadIds,
+                      paymentProvider: 'stripe',
+                    });
+
+                    if (!order) {
+                      alert(lang === 'es' ? 'Error al crear orden' : 'Error creating order');
+                      return;
+                    }
+
+                    // Crear checkout
+                    const checkoutUrl = await createCheckout(order.id);
+                    if (checkoutUrl) {
+                      window.location.href = checkoutUrl;
+                    } else {
+                      alert(lang === 'es' ? 'Error al crear checkout' : 'Error creating checkout');
+                    }
+                  } catch (error: any) {
+                    console.error('Payment error:', error);
+                    alert(lang === 'es' ? 'Error al procesar pago' : 'Error processing payment');
+                  } finally {
+                    setProcessingPayment(false);
+                  }
+                }}
+                disabled={processingPayment || !user || uploadedPhotos.length === 0}
+                className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-12 py-5 rounded-full text-xl font-bold transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 disabled:hover:scale-100"
+              >
+                {processingPayment
+                  ? lang === 'es'
+                    ? 'Procesando...'
+                    : 'Processing...'
+                  : lang === 'es'
+                  ? 'Proceder al Pago'
+                  : 'Proceed to Payment'}
               </button>
 
               <p className="mt-4 text-slate-600">

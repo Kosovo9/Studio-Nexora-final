@@ -1,0 +1,18 @@
+name = "studio-nexora"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[env.production]
+name = "studio-nexora"
+routes = [
+  { pattern = "studio-nexora.com", zone_name = "studio-nexora.com" },
+  { pattern = "www.studio-nexora.com", zone_name = "studio-nexora.com" }
+]
+
+[build]
+command = "npm run build"
+cwd = "."
+
+[site]
+bucket = "./dist"
+

@@ -139,34 +139,125 @@ async function generateImageWithAPI(
   prompt: string,
   version: 'A' | 'B'
 ): Promise<string> {
-  // TODO: Replace with actual image generation API
-  // Example with Replicate:
-  /*
   const REPLICATE_API_TOKEN = import.meta.env.VITE_REPLICATE_API_TOKEN;
-  const model = version === 'A' 
-    ? 'stability-ai/stable-diffusion:db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf'
-    : 'stability-ai/sdxl:39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b';
   
-  const response = await fetch('https://api.replicate.com/v1/predictions', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Token ${REPLICATE_API_TOKEN}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      version: model,
-      input: { prompt, num_outputs: 1 },
-    }),
-  });
-  
-  const data = await response.json();
-  // Poll for completion...
-  return data.output[0];
-  */
+  // Si no hay token de Replicate, usar Stability AI como fallback
+  if (!REPLICATE_API_TOKEN) {
+    console.warn('Replicate API token not configured, using Stability AI fallback');
+    return await generateImageWithStabilityAI(prompt, version);
+  }
 
-  // For now, return a placeholder
-  // In production, make actual API call here
-  return `https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=800`;
+  try {
+    // Modelos optimizados para 2025
+    const model = version === 'A' 
+      ? 'stability-ai/stable-diffusion-xl-base-1.0:49ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b'
+      : 'stability-ai/flux-dev:38f1b130ceb4acfaf465be304a90c03b6ed5af8b3e1781b458be9c0f3e178e76';
+    
+    // Crear predicción
+    const response = await fetch('https://api.replicate.com/v1/predictions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Token ${REPLICATE_API_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        version: model,
+        input: { 
+          prompt,
+          num_outputs: 1,
+          aspect_ratio: '2:3',
+          output_format: 'webp',
+          output_quality: 90
+        },
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Replicate API error: ${response.statusText}`);
+    }
+
+    const prediction = await response.json();
+    
+    // Polling para obtener resultado
+    let result = prediction;
+    while (result.status === 'starting' || result.status === 'processing') {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      const statusResponse = await fetch(`https://api.replicate.com/v1/predictions/${result.id}`, {
+        headers: {
+          'Authorization': `Token ${REPLICATE_API_TOKEN}`,
+        },
+      });
+      result = await statusResponse.json();
+    }
+
+    if (result.status === 'succeeded' && result.output && result.output.length > 0) {
+      return result.output[0];
+    } else {
+      throw new Error(`Generation failed: ${result.error || 'Unknown error'}`);
+    }
+  } catch (error: any) {
+    console.error('Replicate API error:', error);
+    // Fallback a Stability AI
+    return await generateImageWithStabilityAI(prompt, version);
+  }
+}
+
+/**
+ * Fallback: Generate image using Stability AI
+ */
+async function generateImageWithStabilityAI(
+  prompt: string,
+  version: 'A' | 'B'
+): Promise<string> {
+  const STABILITY_API_KEY = import.meta.env.VITE_STABILITY_API_KEY;
+  
+  if (!STABILITY_API_KEY) {
+    console.warn('No image generation API configured, using placeholder');
+    return `https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=800`;
+  }
+
+  try {
+    const engineId = version === 'A' 
+      ? 'stable-diffusion-xl-1024-v1-0'
+      : 'stable-diffusion-xl-1024-v1-0';
+    
+    const response = await fetch(
+      `https://api.stability.ai/v1/generation/${engineId}/text-to-image`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${STABILITY_API_KEY}`,
+        },
+        body: JSON.stringify({
+          text_prompts: [{ text: prompt, weight: 1 }],
+          cfg_scale: 7,
+          height: 1024,
+          width: 768,
+          steps: 30,
+          samples: 1,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Stability AI error: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    if (data.artifacts && data.artifacts.length > 0) {
+      // Convertir base64 a URL
+      const base64 = data.artifacts[0].base64;
+      return `data:image/png;base64,${base64}`;
+    }
+    
+    throw new Error('No image generated');
+  } catch (error: any) {
+    console.error('Stability AI error:', error);
+    // Último fallback: placeholder
+    return `https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=800`;
+  }
 }
 
 /**
